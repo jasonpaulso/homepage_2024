@@ -1,0 +1,93 @@
+---
+const pathname = Astro.url.pathname;
+const currentPath = pathname.slice(1);
+---
+
+<nav class={'nav-container'}>
+  <a class:list={[{ active: currentPath === '' }]} href={'/'}>Home</a>
+  <a class:list={[{ active: currentPath === 'about/' }]} href={'about'}>About</a>
+  <a class:list={[{ active: currentPath === 'contact/' }]} href={'contact'}>Contact</a>
+</nav>
+
+<style>
+  :root {
+    --link-width: 100%;
+    --link-padding: 11.5px 0;
+    --link-border-radius: 6px;
+    --link-font-size: 10px;
+    --link-active-background: #ffd600;
+    --link-height: 31px;
+    --nav-container-width: 296px;
+    --nav-container-padding: 4px 4px 3px 4px;
+    --nav-border-radius: 10px;
+  }
+
+  nav {
+    margin: 0 auto;
+    display: flex;
+    width: var(--nav-container-width);
+    padding: var(--nav-container-padding);
+    justify-content: space-around;
+    flex-shrink: 0;
+    background: #fff;
+    border-radius: var(--nav-border-radius);
+  }
+
+  a {
+    display: flex;
+    width: var(--link-width);
+    justify-content: center;
+    align-items: center;
+    color: #222;
+    border-radius: var(--link-border-radius);
+    text-decoration: none;
+    text-align: center;
+    font-family: 'Helvetica Now Display';
+    font-size: var(--link-font-size);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    padding: var(--link-padding);
+    height: var(--link-height);
+  }
+
+  a.active {
+    background: var(--link-active-background);
+  }
+
+  @media screen and (min-width: 640px) {
+    :root {
+      --link-padding: 13.5px 0;
+      --link-border-radius: 14px;
+      --link-font-size: 12px;
+      --link-height: 36px;
+      --nav-container-width: 396px;
+      --nav-container-padding: 6px;
+      --nav-border-radius: 14px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    :root {
+      --link-padding: unset;
+      --link-border-radius: 16px;
+      --link-font-size: 14px;
+      --link-height: 40px;
+      --nav-container-width: 424px;
+      --nav-container-padding: 8px;
+      --nav-border-radius: 16px;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    :root {
+      --link-padding: 17.5px 0;
+      --link-border-radius: 20px;
+      --link-font-size: 16px;
+      --link-height: 46px;
+      --nav-container-width: 464px;
+      --nav-container-padding: 10px;
+      --nav-border-radius: 20px;
+    }
+  }
+</style>

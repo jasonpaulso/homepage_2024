@@ -1,0 +1,112 @@
+---
+const componentVars = {
+  padding: '16px',
+  borderRadius: '10px',
+  height: '180px',
+  width: '240px',
+  titleFontSize: '24px',
+  statementFontSize: '8px',
+  backgroundBlack: '#222',
+  backgroundBlue: '#552e21',
+  backgroundDada: '#dadada',
+  media: {
+    small: {
+      padding: '20px',
+      borderRadius: '14px',
+      height: '220px',
+      width: '300px',
+      titleFontSize: '32px',
+      statementFontSize: '10px',
+    },
+    medium: {
+      padding: '24px',
+      borderRadius: '16px',
+      height: '260px',
+      width: '360px',
+      titleFontSize: '36px',
+      statementFontSize: '12px',
+    },
+    large: {
+      padding: '32px',
+      borderRadius: '16px',
+      height: '300px',
+      width: '420px',
+      titleFontSize: '40px',
+      statementFontSize: '14px',
+    },
+  },
+};
+---
+
+<div>
+  <h3>Front</h3>
+  <p>
+    Most recently I planned and built landing pages for various marketing initiatives with a highly effective team of designers and engineers. I did this by drawing on my extensive understanding of front-end web development technologies including
+    React, Typescript, Next.js, GraphQL, and Craft CMS.
+  </p>
+</div>
+
+<style define:vars={componentVars}>
+  div {
+    padding: var(--padding);
+    border-radius: var(--borderRadius);
+    background: var(--backgroundBlack);
+    height: var(--height);
+    width: var(--width);
+    max-width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    display: flex;
+  }
+  h3 {
+    color: #f8f7f1;
+    font-family: 'Helvetica Now Display';
+    font-size: var(--titleFontSize);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+  }
+
+  p {
+    color: #f8f7f1;
+    font-family: 'JetBrains Mono';
+    font-size: var(--statementFontSize);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%;
+  }
+
+  @media screen and (min-width: 640px) {
+    :root {
+      --padding: var(--componentVars.media.small.padding);
+      --border-radius: var(--componentVars.media.small.borderRadius);
+      --height: var(--componentVars.media.small.height);
+      --width: var(--componentVars.media.small.width);
+      --title-font-size: var(--componentVars.media.small.titleFontSize);
+      --statement-font-size: var(--componentVars.media.small.statementFontSize);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    :root {
+      --padding: var(--componentVars.media.medium.padding);
+      --border-radius: var(--componentVars.media.medium.borderRadius);
+      --height: var(--componentVars.media.medium.height);
+      --width: var(--componentVars.media.medium.width);
+      --title-font-size: var(--componentVars.media.medium.titleFontSize);
+      --statement-font-size: var(--componentVars.media.medium.statementFontSize);
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    :root {
+      --padding: var(--componentVars.media.large.padding);
+      --border-radius: var(--componentVars.media.large.borderRadius);
+      --height: var(--componentVars.media.large.height);
+      --width: var(--componentVars.media.large.width);
+      --title-font-size: var(--componentVars.media.large.titleFontSize);
+      --statement-font-size: var(--componentVars.media.large.statementFontSize);
+    }
+  }
+</style>
