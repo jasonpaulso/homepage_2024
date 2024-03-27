@@ -1,0 +1,113 @@
+---
+import Sticker from './Sticker.astro';
+
+const { showsAttribution } = Astro.props;
+
+const baseVars = {
+  color: '#222',
+  textAlign: 'center',
+  leadingTrim: 'both',
+  textEdge: 'cap',
+  fontFamily: '"Helvetica Now Display"',
+  fontSize: '32px',
+  fontStyle: 'normal',
+  fontWeight: '400',
+  lineHeight: '100%', // 32px
+  marginTop: '80px',
+};
+
+const smallMediaVars = {
+  smallFontSize: '64px',
+  smallLineHeight: '100%', // 64px
+  smallMarginTop: '100px',
+  smallMarginLeft: '170px',
+  smallPaddingTop: '100px',
+};
+
+const mediumMediaVars = {
+  mediumFontSize: '96px',
+  mediumLineHeight: '100%', // 96px
+  mediumMarginTop: '120px',
+  mediumMarginLeft: '190px',
+  mediumPaddingTop: '120px',
+};
+
+const largeMediaVars = {
+  largeFontSize: '128px',
+  largeLineHeight: '100%', // 128px
+  largeMarginTop: '140px',
+  largeMarginLeft: '280px',
+  largePaddingTop: '140px',
+};
+
+const combinedVars = { ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars };
+---
+
+<footer>
+  {showsAttribution && <Sticker stickerType="logo-as" />}
+  <h2 style={combinedVars}>&copy; 2024</h2>
+</footer>
+
+<style define:vars={combinedVars}>
+  footer {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    margin-top: auto;
+    padding-top: var(--marginTop);
+
+    > div:first-child {
+      margin-left: 28px;
+      align-self: flex-start;
+      margin-bottom: 80px;
+    }
+  }
+  footer h2 {
+    color: var(--color);
+    text-align: var(--textAlign);
+    font-family: var(--fontFamily);
+    font-size: var(--fontSize);
+    font-style: var(--fontStyle);
+    font-weight: var(--fontWeight);
+    line-height: var(--lineHeight);
+  }
+
+  @media screen and (min-width: 640px) {
+    footer {
+      padding-top: var(--smallPaddingTop);
+      > div:first-child {
+        margin-left: var(--smallMarginLeft);
+      }
+    }
+    footer h2 {
+      font-size: var(--smallFontSize);
+      line-height: var(--smallLineHeight);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    footer {
+      padding-top: var(--mediumPaddingTop);
+      > div:first-child {
+        margin-left: var(--mediumMarginLeft);
+      }
+    }
+    footer h2 {
+      font-size: var(--mediumFontSize);
+      line-height: var(--mediumLineHeight);
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    footer {
+      padding-top: var(--largePaddingTop);
+      > div:first-child {
+        margin-left: var(--largeMarginLeft);
+      }
+    }
+    footer h2 {
+      font-size: var(--largeFontSize);
+      line-height: var(--largeLineHeight);
+    }
+  }
+</style>

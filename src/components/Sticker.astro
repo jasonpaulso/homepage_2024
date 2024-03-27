@@ -1,0 +1,138 @@
+---
+import { Image } from 'astro:assets';
+import logoAs from '../../public/images/stickers/as-logo.png';
+import stickerAbout from '../../public/images/stickers/Memoji_About.png';
+import stickerHome from '../../public/images/stickers/Memoji_Home.png';
+
+export interface Props {
+  stickerType: 'memoji-about' | 'memoji-home' | 'logo-as';
+}
+const { stickerType } = Astro.props;
+const stickerProps = stickerType.split('-');
+
+const imageCategory = stickerProps[0];
+const imageIdentifier = stickerProps[1];
+
+const returnImage = () => {
+  switch (imageCategory) {
+    case 'memoji':
+      switch (imageIdentifier) {
+        case 'about':
+          return {
+            altText: 'Jason Schulz Memoji with peace fingers',
+            src: stickerAbout,
+          };
+
+        default:
+          return {
+            altText: 'Jason Schulz Memoji with a pensive expression',
+            src: stickerHome,
+          };
+      }
+    default:
+      return {
+        altText: 'Anton Schulz logo',
+        src: logoAs,
+      };
+  }
+};
+
+const stickerData = returnImage();
+
+const baseVars = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: '148px',
+  background: imageCategory === 'memoji' ? '#FFD600' : '#D4D7B9',
+  width: '120px',
+  height: '120px',
+  padding: '20px',
+  stickerWidth: '80%',
+  stickerHeight: '80px',
+};
+
+const smallMediaVars = {
+  smallWidth: '150px',
+  smallHeight: '150px',
+  smallPadding: '20px',
+  smallStickerHeight: '100px',
+};
+
+const mediumMediaVars = {
+  mediumWidth: '180px',
+  mediumHeight: '180px',
+  mediumPadding: '25px',
+  mediumStickerHeight: '115px',
+};
+
+const largeMediaVars = {
+  largeWidth: '210px',
+  largeHeight: '210px',
+  largePadding: '25px',
+  largeStickerHeight: '140px',
+};
+
+const combinedVars = { ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars };
+---
+
+<div>
+  <Image src={stickerData.src} alt={stickerData.altText} />
+</div>
+
+<style define:vars={combinedVars}>
+  div {
+    align-self: flex-end;
+    padding: var(--padding);
+    border-radius: var(--borderRadius);
+    background: var(--background);
+    height: var(--height);
+    width: var(--width);
+    max-width: 100%;
+    justify-content: var(--justifyContent);
+    align-items: var(--alignItems);
+    display: var(--display);
+  }
+
+  div img {
+    object-fit: contain;
+    width: var(--stickerWidth);
+    height: var(--stickerHeight);
+  }
+
+  @media screen and (min-width: 640px) {
+    div {
+      padding: var(--smallPadding);
+      border-radius: var(--borderRadius);
+      height: var(--smallHeight);
+      width: var(--smallWidth);
+    }
+    div img {
+      height: var(--smallStickerHeight);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    div {
+      padding: var(--mediumPadding);
+      border-radius: var(--borderRadius);
+      height: var(--mediumHeight);
+      width: var(--mediumWidth);
+    }
+    div img {
+      height: var(--mediumStickerHeight);
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    div {
+      padding: var(--largePadding);
+      border-radius: var(--borderRadius);
+      height: var(--largeHeight);
+      width: var(--largeWidth);
+    }
+    div img {
+      height: var(--largeStickerHeight);
+    }
+  }
+</style>

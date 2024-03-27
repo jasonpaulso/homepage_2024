@@ -1,0 +1,108 @@
+---
+import Sticker from './Sticker.astro';
+import type { Props as StickerProps } from './Sticker.astro';
+
+interface Props {
+  sticker?: StickerProps['stickerType'];
+  headline: string;
+}
+
+const { sticker = 'memoji-home', headline } = Astro.props;
+
+const baseVars = {
+  color: '#222',
+  leadingTrim: 'both',
+  textEdge: 'cap',
+  fontFamily: 'Helvetica Now Display',
+  fontSize: '36px',
+  fontStyle: 'normal',
+  fontWeight: '400',
+  lineHeight: '110%', // 39.6px
+  marginTop: '24px',
+  gap: '106px',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const smallMediaVars = {
+  smallFontSize: '64px',
+  smallLineHeight: '110%', // 70.4px
+  smallMarginTop: '48px',
+  smallGap: '130px',
+};
+
+const mediumMediaVars = {
+  mediumFontSize: '96px',
+  mediumLineHeight: '110%', // 105.6px
+  mediumMarginTop: '64px',
+  mediumGap: '152px',
+};
+
+const largeMediaVars = {
+  largeFontSize: '128px',
+  largeLineHeight: '110%', // 140.8px
+  largeMarginTop: '96px',
+  largeGap: '164px',
+};
+
+const combinedVars = { ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars };
+---
+
+<header>
+  <Sticker stickerType={sticker} />
+  <h1>{headline}</h1>
+</header>
+
+<style define:vars={combinedVars}>
+  header {
+    margin-top: var(--marginTop);
+    gap: var(--gap);
+    display: var(--display);
+    flex-direction: var(--flexDirection);
+  }
+
+  h1 {
+    color: var(--color);
+    font-family: var(--fontFamily);
+    font-size: var(--fontSize);
+    font-style: var(--fontStyle);
+    font-weight: var(--fontWeight);
+    line-height: var(--lineHeight);
+  }
+
+  @media screen and (min-width: 640px) {
+    header {
+      margin-top: var(--smallMarginTop);
+      gap: var(--smallGap);
+    }
+
+    h1 {
+      font-size: var(--smallFontSize);
+      line-height: var(--smallLineHeight);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    header {
+      margin-top: var(--mediumMarginTop);
+      gap: var(--mediumGap);
+    }
+
+    h1 {
+      font-size: var(--mediumFontSize);
+      line-height: var(--mediumLineHeight);
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    header {
+      margin-top: var(--largeMarginTop);
+      gap: var(--largeGap);
+    }
+
+    h1 {
+      font-size: var(--largeFontSize);
+      line-height: var(--largeLineHeight);
+    }
+  }
+</style>

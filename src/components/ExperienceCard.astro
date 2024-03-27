@@ -1,5 +1,5 @@
 ---
-const componentVars = {
+const baseVars = {
   padding: '16px',
   borderRadius: '10px',
   height: '180px',
@@ -7,46 +7,66 @@ const componentVars = {
   titleFontSize: '24px',
   statementFontSize: '8px',
   backgroundBlack: '#222',
-  backgroundBlue: '#552e21',
+  backgroundBrown: '#552e21',
   backgroundDada: '#dadada',
-  media: {
-    small: {
-      padding: '20px',
-      borderRadius: '14px',
-      height: '220px',
-      width: '300px',
-      titleFontSize: '32px',
-      statementFontSize: '10px',
-    },
-    medium: {
-      padding: '24px',
-      borderRadius: '16px',
-      height: '260px',
-      width: '360px',
-      titleFontSize: '36px',
-      statementFontSize: '12px',
-    },
-    large: {
-      padding: '32px',
-      borderRadius: '16px',
-      height: '300px',
-      width: '420px',
-      titleFontSize: '40px',
-      statementFontSize: '14px',
-    },
-  },
+  backgroundSilverGreen: '#D4D7B9',
+  colorBeige: '#f8f7f1',
+  colorBlack: '#222',
 };
+
+const smallMediaVars = {
+  smallPadding: '20px',
+  smallBorderRadius: '14px',
+  smallHeight: '220px',
+  smallWidth: '300px',
+  smallTitleFontSize: '32px',
+  smallStatementFontSize: '10px',
+};
+
+const mediumMediaVars = {
+  mediumPadding: '24px',
+  mediumBorderRadius: '16px',
+  mediumHeight: '260px',
+  mediumWidth: '360px',
+  mediumTitleFontSize: '36px',
+  mediumStatementFontSize: '12px',
+};
+
+const largeMediaVars = {
+  largePadding: '32px',
+  largeBorderRadius: '16px',
+  largeHeight: '300px',
+  largeWidth: '420px',
+  largeTitleFontSize: '40px',
+  largeStatementFontSize: '14px',
+};
+
+const variantColors = [
+  { background: baseVars.backgroundBlack, color: baseVars.colorBeige },
+  { background: baseVars.backgroundBrown, color: baseVars.colorBeige },
+  { background: baseVars.backgroundDada, color: baseVars.colorBlack },
+  { background: baseVars.backgroundSilverGreen, color: baseVars.colorBlack },
+];
+
+const combinedVars = { ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars };
+
+const { headline, statement, variant = 0 } = Astro.props;
+
+const colors = variantColors[variant];
 ---
 
-<div>
-  <h3>Front</h3>
+<div style={{ background: colors.background, color: colors.color }}>
+  <h3>{headline || 'Front'}</h3>
   <p>
-    Most recently I planned and built landing pages for various marketing initiatives with a highly effective team of designers and engineers. I did this by drawing on my extensive understanding of front-end web development technologies including
-    React, Typescript, Next.js, GraphQL, and Craft CMS.
+    {
+      statement ||
+        `Most recently I planned and built landing pages for various marketing initiatives with a highly effective team of designers and engineers. I did this by drawing on my extensive understanding of front-end web development technologies including
+    React, Typescript, Next.js, GraphQL, and Craft CMS.`
+    }
   </p>
 </div>
 
-<style define:vars={componentVars}>
+<style define:vars={combinedVars}>
   div {
     padding: var(--padding);
     border-radius: var(--borderRadius);
@@ -59,8 +79,8 @@ const componentVars = {
     align-items: flex-start;
     display: flex;
   }
+
   h3 {
-    color: #f8f7f1;
     font-family: 'Helvetica Now Display';
     font-size: var(--titleFontSize);
     font-style: normal;
@@ -69,7 +89,6 @@ const componentVars = {
   }
 
   p {
-    color: #f8f7f1;
     font-family: 'JetBrains Mono';
     font-size: var(--statementFontSize);
     font-style: normal;
@@ -78,35 +97,53 @@ const componentVars = {
   }
 
   @media screen and (min-width: 640px) {
-    :root {
-      --padding: var(--componentVars.media.small.padding);
-      --border-radius: var(--componentVars.media.small.borderRadius);
-      --height: var(--componentVars.media.small.height);
-      --width: var(--componentVars.media.small.width);
-      --title-font-size: var(--componentVars.media.small.titleFontSize);
-      --statement-font-size: var(--componentVars.media.small.statementFontSize);
+    div {
+      padding: var(--smallPadding);
+      border-radius: var(--smallBorderRadius);
+      height: var(--smallHeight);
+      width: var(--smallWidth);
+    }
+
+    h3 {
+      font-size: var(--smallTitleFontSize);
+    }
+
+    p {
+      font-size: var(--smallStatementFontSize);
     }
   }
 
   @media screen and (min-width: 1024px) {
-    :root {
-      --padding: var(--componentVars.media.medium.padding);
-      --border-radius: var(--componentVars.media.medium.borderRadius);
-      --height: var(--componentVars.media.medium.height);
-      --width: var(--componentVars.media.medium.width);
-      --title-font-size: var(--componentVars.media.medium.titleFontSize);
-      --statement-font-size: var(--componentVars.media.medium.statementFontSize);
+    div {
+      padding: var(--mediumPadding);
+      border-radius: var(--mediumBorderRadius);
+      height: var(--mediumHeight);
+      width: var(--mediumWidth);
+    }
+
+    h3 {
+      font-size: var(--mediumTitleFontSize);
+    }
+
+    p {
+      font-size: var(--mediumStatementFontSize);
     }
   }
 
   @media screen and (min-width: 1440px) {
-    :root {
-      --padding: var(--componentVars.media.large.padding);
-      --border-radius: var(--componentVars.media.large.borderRadius);
-      --height: var(--componentVars.media.large.height);
-      --width: var(--componentVars.media.large.width);
-      --title-font-size: var(--componentVars.media.large.titleFontSize);
-      --statement-font-size: var(--componentVars.media.large.statementFontSize);
+    div {
+      padding: var(--largePadding);
+      border-radius: var(--largeBorderRadius);
+      height: var(--largeHeight);
+      width: var(--largeWidth);
+    }
+
+    h3 {
+      font-size: var(--largeTitleFontSize);
+    }
+
+    p {
+      font-size: var(--largeStatementFontSize);
     }
   }
 </style>

@@ -1,0 +1,160 @@
+---
+import ExperienceCard from './ExperienceCard.astro';
+
+const baseVars = {
+  marginTop: '80px',
+  small: {
+    marginTop: '100px',
+  },
+};
+
+const smallMediaVars = {
+  smallMarginTop: '100px',
+};
+
+const mediumMediaVars = {
+  mediumMarginTop: '120px',
+};
+
+const largeMediaVars = {
+  largeMarginTop: '140px',
+};
+
+const combinedVars = {
+  ...baseVars,
+  ...smallMediaVars,
+  ...mediumMediaVars,
+  ...largeMediaVars,
+};
+
+interface ExperienceCardProps {
+  variant: number;
+  headline: string;
+  statement?: string;
+}
+
+const cards: ExperienceCardProps[] = [
+  {
+    headline: 'Front',
+    statement:
+      'Most recently I planned and built landing pages for various marketing initiatives with a highly effective team of designers and engineers. I did this by drawing on my extensive understanding of front-end web development technologies including React, Typescript, Next.js, GraphQL, and Craft CMS.',
+    variant: 0,
+  },
+  {
+    headline: 'Microsoft',
+    statement:
+      'During this job tenure, I worked daily with a heterogeneous team of designers, researchers, product managers, and engineers to develop and maintain the Microsoft 365 range of consumer products. developed the front-end for Money in Excel and the React Excel plugin, which has tens of thousands of active users each month. ',
+    variant: 1,
+  },
+  {
+    headline: 'MileIQ by Microsoft',
+    statement: `In this position, I created web properties, in-app messages, and email campaigns in conjunction with designers, product managers, and stakeholders for Microsoft's MileIQ.`,
+    variant: 2,
+  },
+];
+---
+
+<section class="cards">
+  {
+    cards.map((card) => {
+      return <ExperienceCard {...card} key={card} />;
+    })
+  }
+</section>
+
+<style define:vars={combinedVars}>
+  .cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--marginTop);
+    > div:nth-child(1) {
+      transform: rotate(-4deg);
+      margin-right: auto;
+      margin-left: 0;
+    }
+
+    > div:nth-child(2) {
+      transform: rotate(8deg);
+      margin-top: 43px;
+      margin-right: 0;
+      margin-left: auto;
+      margin-top: 80px;
+      z-index: 2; /* Add this line */
+    }
+
+    > div:nth-child(3) {
+      transform: rotate(-6deg);
+      margin-top: -8px;
+      margin-right: auto;
+      margin-left: 0;
+      z-index: 1; /* Add this line */
+    }
+  }
+
+  @media (min-width: 640px) {
+    .cards {
+      margin-top: var(--smallMarginTop);
+      > div:nth-child(1) {
+        margin-right: auto;
+        margin-left: 0;
+      }
+
+      > div:nth-child(2) {
+        margin-right: 0;
+
+        margin-top: 100px;
+      }
+
+      > div:nth-child(3) {
+        margin-top: -50px;
+        margin-right: auto;
+        margin-left: 80px;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cards {
+      margin-top: var(--mediumMarginTop);
+      > div:nth-child(1) {
+        margin-right: auto;
+        margin-left: 0;
+      }
+
+      > div:nth-child(2) {
+        margin-right: 0;
+
+        margin-top: -120px;
+      }
+
+      > div:nth-child(3) {
+        margin-top: -100px;
+        margin-right: auto;
+        margin-left: 272px;
+      }
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .cards {
+      margin-top: var(--largeMarginTop);
+      > div:nth-child(1) {
+        margin-right: auto;
+        margin-left: 108px;
+      }
+
+      > div:nth-child(2) {
+        margin-top: -130px;
+        margin-right: 100px;
+      }
+
+      > div:nth-child(3) {
+        margin-top: -122px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  }
+</style>

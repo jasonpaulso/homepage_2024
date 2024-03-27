@@ -1,93 +1,158 @@
 ---
 const pathname = Astro.url.pathname;
 const currentPath = pathname.slice(1);
+
+const baseVars = {
+  linkWidth: '100%',
+  linkPadding: '11.5px 0',
+  linkBorderRadius: '6px',
+  linkFontSize: '10px',
+  linkActiveBackground: '#ffd600',
+  linkHoverBackground: '#ffeb80',
+  linkHeight: '31px',
+  navContainerWidth: '296px',
+  navContainerPadding: '4px 4px 3px 4px',
+  navBorderRadius: '10px',
+  top: '12px', 
+};
+
+const smallMediaVars = {
+  smallLinkPadding: '13.5px 0',
+  smallLinkBorderRadius: '8px',
+  smallLinkFontSize: '12px',
+  smallLinkHeight: '36px',
+  smallNavContainerWidth: '396px',
+  smallNavContainerPadding: '6px',
+  smallNavBorderRadius: '14px',
+  smallMediaVarsTop: '24px',
+};
+
+const mediumMediaVars = {
+  mediumLinkPadding: 'unset',
+  mediumLinkBorderRadius: '8px',
+  mediumLinkFontSize: '14px',
+  mediumLinkHeight: '40px',
+  mediumNavContainerWidth: '424px',
+  mediumNavContainerPadding: '8px',
+  mediumNavBorderRadius: '16px',
+  mediumMediaVarsTop: '36px',
+};
+
+const largeMediaVars = {
+  largeLinkPadding: '17.5px 0',
+  largeLinkBorderRadius: '10px',
+  largeLinkFontSize: '16px',
+  largeLinkHeight: '46px',
+  largeNavContainerWidth: '464px',
+  largeNavContainerPadding: '10px',
+  largeNavBorderRadius: '20px',
+  largeMediaVarsTop: '64px',
+};
+
+const combinedVars = {
+  ...baseVars,
+  ...smallMediaVars,
+  ...mediumMediaVars,
+  ...largeMediaVars,
+};
 ---
 
 <nav class={'nav-container'}>
-  <a class:list={[{ active: currentPath === '' }]} href={'/'}>Home</a>
-  <a class:list={[{ active: currentPath === 'about/' }]} href={'about'}>About</a>
-  <a class:list={[{ active: currentPath === 'contact/' }]} href={'contact'}>Contact</a>
+  <a class={currentPath === '' ? 'active' : ''} href={'/'}>Home</a>
+  <a class={currentPath === 'about' ? 'active' : ''} href={'about'}>About</a>
+  <a class={currentPath === 'email' ? 'active' : ''} href={'mailto:jason@schulz.studio'}>Email</a>
 </nav>
 
-<style>
-  :root {
-    --link-width: 100%;
-    --link-padding: 11.5px 0;
-    --link-border-radius: 6px;
-    --link-font-size: 10px;
-    --link-active-background: #ffd600;
-    --link-height: 31px;
-    --nav-container-width: 296px;
-    --nav-container-padding: 4px 4px 3px 4px;
-    --nav-border-radius: 10px;
-  }
-
+<style define:vars={combinedVars}>
   nav {
+    position: sticky;
+    top: var(--top);
     margin: 0 auto;
     display: flex;
-    width: var(--nav-container-width);
-    padding: var(--nav-container-padding);
+    width: var(--navContainerWidth);
+    padding: var(--navContainerPadding);
     justify-content: space-around;
     flex-shrink: 0;
     background: #fff;
-    border-radius: var(--nav-border-radius);
+    border-radius: var(--navBorderRadius);
+    z-index: 1000;
   }
 
   a {
     display: flex;
-    width: var(--link-width);
+    width: var(--linkWidth);
     justify-content: center;
     align-items: center;
     color: #222;
-    border-radius: var(--link-border-radius);
+    border-radius: var(--linkBorderRadius);
     text-decoration: none;
     text-align: center;
     font-family: 'Helvetica Now Display';
-    font-size: var(--link-font-size);
+    font-size: var(--linkFontSize);
     font-style: normal;
     font-weight: 700;
     line-height: 110%;
-    padding: var(--link-padding);
-    height: var(--link-height);
+    padding: var(--linkPadding);
+    height: var(--linkHeight);
+    transition: background 0.2s ease-in-out;
+    
   }
 
-  a.active {
-    background: var(--link-active-background);
+  a.active,a:hover {
+    background: var(--linkActiveBackground);
   }
+
+  nav:hover a:not(:hover) {
+    background: #fff;
+  }
+
+
 
   @media screen and (min-width: 640px) {
-    :root {
-      --link-padding: 13.5px 0;
-      --link-border-radius: 14px;
-      --link-font-size: 12px;
-      --link-height: 36px;
-      --nav-container-width: 396px;
-      --nav-container-padding: 6px;
-      --nav-border-radius: 14px;
+    nav {
+      width: var(--smallNavContainerWidth);
+      padding: var(--smallNavContainerPadding);
+      border-radius: var(--smallNavBorderRadius);
+      top: var(--smallMediaVarsTop);
+    }
+
+    a {
+      padding: var(--smallLinkPadding);
+      border-radius: var(--smallLinkBorderRadius);
+      font-size: var(--smallLinkFontSize);
+      height: var(--smallLinkHeight);
     }
   }
 
   @media screen and (min-width: 1024px) {
-    :root {
-      --link-padding: unset;
-      --link-border-radius: 16px;
-      --link-font-size: 14px;
-      --link-height: 40px;
-      --nav-container-width: 424px;
-      --nav-container-padding: 8px;
-      --nav-border-radius: 16px;
+    nav {
+      width: var(--mediumNavContainerWidth);
+      padding: var(--mediumNavContainerPadding);
+      border-radius: var(--mediumNavBorderRadius);
+      top: var(--mediumMediaVarsTop);
+    }
+
+    a {
+      padding: var(--mediumLinkPadding);
+      border-radius: var(--mediumLinkBorderRadius);
+      font-size: var(--mediumLinkFontSize);
+      height: var(--mediumLinkHeight);
     }
   }
 
   @media screen and (min-width: 1440px) {
-    :root {
-      --link-padding: 17.5px 0;
-      --link-border-radius: 20px;
-      --link-font-size: 16px;
-      --link-height: 46px;
-      --nav-container-width: 464px;
-      --nav-container-padding: 10px;
-      --nav-border-radius: 20px;
+    nav {
+      width: var(--largeNavContainerWidth);
+      padding: var(--largeNavContainerPadding);
+      border-radius: var(--largeNavBorderRadius);
+      top: var(--largeMediaVarsTop);
+    }
+
+    a {
+      padding: var(--largeLinkPadding);
+      border-radius: var(--largeLinkBorderRadius);
+      font-size: var(--largeLinkFontSize);
+      height: var(--largeLinkHeight);
     }
   }
 </style>
