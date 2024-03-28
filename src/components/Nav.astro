@@ -1,61 +1,7 @@
 ---
 const pathname = Astro.url.pathname;
-console.log("🚀 ~ pathname:", pathname)
+console.log('🚀 ~ pathname:', pathname);
 // const currentPath = pathname.slice(1);
-
-const baseVars = {
-  linkWidth: '100%',
-  linkPadding: '11.5px 0',
-  linkBorderRadius: '6px',
-  linkFontSize: '10px',
-  linkActiveBackground: '#ffd600',
-  linkHoverBackground: '#ffeb80',
-  linkHeight: '31px',
-  navContainerWidth: '296px',
-  navContainerPadding: '4px 4px 3px 4px',
-  navBorderRadius: '10px',
-  top: '12px', 
-};
-
-const smallMediaVars = {
-  smallLinkPadding: '13.5px 0',
-  smallLinkBorderRadius: '8px',
-  smallLinkFontSize: '12px',
-  smallLinkHeight: '36px',
-  smallNavContainerWidth: '396px',
-  smallNavContainerPadding: '6px',
-  smallNavBorderRadius: '14px',
-  smallMediaVarsTop: '24px',
-};
-
-const mediumMediaVars = {
-  mediumLinkPadding: 'unset',
-  mediumLinkBorderRadius: '8px',
-  mediumLinkFontSize: '14px',
-  mediumLinkHeight: '40px',
-  mediumNavContainerWidth: '424px',
-  mediumNavContainerPadding: '8px',
-  mediumNavBorderRadius: '16px',
-  mediumMediaVarsTop: '36px',
-};
-
-const largeMediaVars = {
-  largeLinkPadding: '17.5px 0',
-  largeLinkBorderRadius: '10px',
-  largeLinkFontSize: '16px',
-  largeLinkHeight: '46px',
-  largeNavContainerWidth: '464px',
-  largeNavContainerPadding: '10px',
-  largeNavBorderRadius: '20px',
-  largeMediaVarsTop: '64px',
-};
-
-const combinedVars = {
-  ...baseVars,
-  ...smallMediaVars,
-  ...mediumMediaVars,
-  ...largeMediaVars,
-};
 ---
 
 <nav class={'nav-container'}>
@@ -64,96 +10,94 @@ const combinedVars = {
   <a class={pathname === '/email/' ? 'active' : ''} href={'mailto:jason@schulz.studio'}>Email</a>
 </nav>
 
-<style define:vars={combinedVars}>
+<style>
   nav {
     position: sticky;
-    top: var(--top);
+    top: 12px;
     margin: 0 auto;
     display: flex;
-    width: var(--navContainerWidth);
-    padding: var(--navContainerPadding);
+    width: 296px;
+    padding: 4px;
     justify-content: space-around;
     flex-shrink: 0;
     background: #fff;
-    border-radius: var(--navBorderRadius);
+    border-radius: 10px;
     z-index: 1000;
   }
 
   a {
     display: flex;
-    width: var(--linkWidth);
+    width: 100%;
     justify-content: center;
     align-items: center;
     color: #222;
-    border-radius: var(--linkBorderRadius);
+    border-radius: 6px;
     text-decoration: none;
     text-align: center;
     font-family: 'Helvetica Now Display';
-    font-size: var(--linkFontSize);
+    font-size: 10px;
     font-style: normal;
     font-weight: 700;
     line-height: 110%;
-    padding: var(--linkPadding);
-    height: var(--linkHeight);
+    padding: 11.5px 0;
+    height: 31px;
     transition: background 0.2s ease-in-out;
-    
   }
 
-  a.active,a:hover {
-    background: var(--linkActiveBackground);
+  a.active,
+  a:hover {
+    background: #ffd600;
   }
 
   nav:hover a:not(:hover) {
     background: #fff;
   }
 
-
-
   @media screen and (min-width: 640px) {
     nav {
-      width: var(--smallNavContainerWidth);
-      padding: var(--smallNavContainerPadding);
-      border-radius: var(--smallNavBorderRadius);
-      top: var(--smallMediaVarsTop);
+      width: 396px;
+      padding: 6px;
+      border-radius: 14px;
+      top: 24px;
     }
 
     a {
-      padding: var(--smallLinkPadding);
-      border-radius: var(--smallLinkBorderRadius);
-      font-size: var(--smallLinkFontSize);
-      height: var(--smallLinkHeight);
+      padding: 13.5px 0;
+      border-radius: 8px;
+      font-size: 12px;
+      height: 36px;
     }
   }
 
   @media screen and (min-width: 1024px) {
     nav {
-      width: var(--mediumNavContainerWidth);
-      padding: var(--mediumNavContainerPadding);
-      border-radius: var(--mediumNavBorderRadius);
-      top: var(--mediumMediaVarsTop);
+      width: 424px;
+      padding: 8px;
+      border-radius: 16px;
+      top: 36px;
     }
 
     a {
-      padding: var(--mediumLinkPadding);
-      border-radius: var(--mediumLinkBorderRadius);
-      font-size: var(--mediumLinkFontSize);
-      height: var(--mediumLinkHeight);
+      padding: unset;
+      border-radius: 8px;
+      font-size: 14px;
+      height: 40px;
     }
   }
 
   @media screen and (min-width: 1440px) {
     nav {
-      width: var(--largeNavContainerWidth);
-      padding: var(--largeNavContainerPadding);
-      border-radius: var(--largeNavBorderRadius);
-      top: var(--largeMediaVarsTop);
+      width: 464px;
+      padding: 10px;
+      border-radius: 20px;
+      top: 48px;
     }
 
     a {
-      padding: var(--largeLinkPadding);
-      border-radius: var(--largeLinkBorderRadius);
-      font-size: var(--largeLinkFontSize);
-      height: var(--largeLinkHeight);
+      padding: 17.5px 0;
+      border-radius: 10px;
+      font-size: 16px;
+      height: 46px;
     }
   }
 </style>

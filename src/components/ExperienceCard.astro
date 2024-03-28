@@ -1,54 +1,10 @@
 ---
-const baseVars = {
-  padding: '16px',
-  borderRadius: '10px',
-  height: '180px',
-  width: '240px',
-  titleFontSize: '24px',
-  statementFontSize: '8px',
-  backgroundBlack: '#222',
-  backgroundBrown: '#552e21',
-  backgroundDada: '#dadada',
-  backgroundSilverGreen: '#D4D7B9',
-  colorBeige: '#f8f7f1',
-  colorBlack: '#222',
-};
-
-const smallMediaVars = {
-  smallPadding: '20px',
-  smallBorderRadius: '14px',
-  smallHeight: '220px',
-  smallWidth: '300px',
-  smallTitleFontSize: '32px',
-  smallStatementFontSize: '10px',
-};
-
-const mediumMediaVars = {
-  mediumPadding: '24px',
-  mediumBorderRadius: '16px',
-  mediumHeight: '260px',
-  mediumWidth: '360px',
-  mediumTitleFontSize: '36px',
-  mediumStatementFontSize: '12px',
-};
-
-const largeMediaVars = {
-  largePadding: '32px',
-  largeBorderRadius: '16px',
-  largeHeight: '300px',
-  largeWidth: '420px',
-  largeTitleFontSize: '40px',
-  largeStatementFontSize: '14px',
-};
-
 const variantColors = [
-  { background: baseVars.backgroundBlack, color: baseVars.colorBeige },
-  { background: baseVars.backgroundBrown, color: baseVars.colorBeige },
-  { background: baseVars.backgroundDada, color: baseVars.colorBlack },
-  { background: baseVars.backgroundSilverGreen, color: baseVars.colorBlack },
+  { background: '#222', color: '#f8f7f1' },
+  { background: '#552e21', color: '#f8f7f1' },
+  { background: '#dadada', color: '#222' },
+  { background: '#D4D7B9', color: '#222' },
 ];
-
-const combinedVars = { ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars };
 
 const { headline, statement, variant = 0 } = Astro.props;
 
@@ -66,13 +22,12 @@ const colors = variantColors[variant];
   </p>
 </div>
 
-<style define:vars={combinedVars}>
+<style>
   div {
-    padding: var(--padding);
-    border-radius: var(--borderRadius);
-    background: var(--backgroundBlack);
-    height: var(--height);
-    width: var(--width);
+    padding: 16px;
+    border-radius: 10px;
+    height: 180px;
+    width: 240px;
     max-width: 100%;
     flex-direction: column;
     justify-content: space-between;
@@ -82,7 +37,7 @@ const colors = variantColors[variant];
 
   h3 {
     font-family: 'Helvetica Now Display';
-    font-size: var(--titleFontSize);
+    font-size: 24px;
     font-style: normal;
     font-weight: 700;
     line-height: 100%;
@@ -90,7 +45,7 @@ const colors = variantColors[variant];
 
   p {
     font-family: 'JetBrains Mono';
-    font-size: var(--statementFontSize);
+    font-size: 8px;
     font-style: normal;
     font-weight: 400;
     line-height: 125%;
@@ -98,52 +53,50 @@ const colors = variantColors[variant];
 
   @media screen and (min-width: 640px) {
     div {
-      padding: var(--smallPadding);
-      border-radius: var(--smallBorderRadius);
-      height: var(--smallHeight);
-      width: var(--smallWidth);
+      padding: 20px;
+      border-radius: 14px;
+      height: 220px;
+      width: 300px;
     }
 
     h3 {
-      font-size: var(--smallTitleFontSize);
+      font-size: 32px;
     }
 
     p {
-      font-size: var(--smallStatementFontSize);
+      font-size: 10px;
     }
   }
-
   @media screen and (min-width: 1024px) {
     div {
-      padding: var(--mediumPadding);
-      border-radius: var(--mediumBorderRadius);
-      height: var(--mediumHeight);
-      width: var(--mediumWidth);
+      padding: 24px;
+      border-radius: 16px;
+      height: 260px;
+      width: 360px;
     }
-
     h3 {
-      font-size: var(--mediumTitleFontSize);
+      font-size: 36px;
     }
 
     p {
-      font-size: var(--mediumStatementFontSize);
+      font-size: 12px;
     }
   }
 
   @media screen and (min-width: 1440px) {
     div {
-      padding: var(--largePadding);
-      border-radius: var(--largeBorderRadius);
-      height: var(--largeHeight);
-      width: var(--largeWidth);
+      padding: 32px;
+      border-radius: 16px;
+      height: 300px;
+      width: 420px;
     }
 
     h3 {
-      font-size: var(--largeTitleFontSize);
+      font-size: 40px;
     }
 
     p {
-      font-size: var(--largeStatementFontSize);
+      font-size: 14px;
     }
   }
 </style>

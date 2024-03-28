@@ -21,118 +21,98 @@ const returnImage = () => {
           return {
             altText: 'Jason Schulz Memoji with peace fingers',
             src: stickerAbout,
+            className: 'memoji',
           };
 
         default:
           return {
             altText: 'Jason Schulz Memoji with a pensive expression',
             src: stickerHome,
+            className: 'memoji',
           };
       }
     default:
       return {
         altText: 'Anton Schulz logo',
         src: logoAs,
+        className: 'logo',
       };
   }
 };
 
 const stickerData = returnImage();
-
-const baseVars = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: '148px',
-  background: imageCategory === 'memoji' ? '#FFD600' : '#D4D7B9',
-  width: '120px',
-  height: '120px',
-  padding: '20px',
-  stickerWidth: '80%',
-  stickerHeight: '80px',
-};
-
-const smallMediaVars = {
-  smallWidth: '150px',
-  smallHeight: '150px',
-  smallPadding: '20px',
-  smallStickerHeight: '100px',
-};
-
-const mediumMediaVars = {
-  mediumWidth: '180px',
-  mediumHeight: '180px',
-  mediumPadding: '25px',
-  mediumStickerHeight: '115px',
-};
-
-const largeMediaVars = {
-  largeWidth: '210px',
-  largeHeight: '210px',
-  largePadding: '25px',
-  largeStickerHeight: '140px',
-};
-
-const combinedVars = { ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars };
 ---
 
-<div>
+<div class={stickerData.className}>
   <Image src={stickerData.src} alt={stickerData.altText} />
 </div>
 
-<style define:vars={combinedVars}>
+<style>
   div {
     align-self: flex-end;
-    padding: var(--padding);
-    border-radius: var(--borderRadius);
-    background: var(--background);
-    height: var(--height);
-    width: var(--width);
+    padding: 15px;
+    border-radius: 100px;
+    background: #fff;
+    height: 120px;
+    width: 120px;
     max-width: 100%;
-    justify-content: var(--justifyContent);
-    align-items: var(--alignItems);
-    display: var(--display);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+    /* 'memoji' ? '#FFD600' : '#D4D7B9' */
+  }
+
+  .logo {
+    background-color: #d4d7b9;
+  }
+  .memoji {
+    background-color: #ffd600;
   }
 
   div img {
     object-fit: contain;
-    width: var(--stickerWidth);
-    height: var(--stickerHeight);
+    width: 80px;
+    height: 80px;
   }
 
   @media screen and (min-width: 640px) {
     div {
-      padding: var(--smallPadding);
-      border-radius: var(--borderRadius);
-      height: var(--smallHeight);
-      width: var(--smallWidth);
+      padding: 20px;
+      border-radius: 100px;
+      height: 150px;
+      width: 150px;
     }
+
     div img {
-      height: var(--smallStickerHeight);
+      width: 100px;
+      height: 100px;
     }
   }
 
   @media screen and (min-width: 1024px) {
     div {
-      padding: var(--mediumPadding);
-      border-radius: var(--borderRadius);
-      height: var(--mediumHeight);
-      width: var(--mediumWidth);
+      padding: 25px;
+      height: 180px;
+      width: 180px;
     }
+
     div img {
-      height: var(--mediumStickerHeight);
+      width: 115px;
+      height: 115px;
     }
   }
 
   @media screen and (min-width: 1440px) {
     div {
-      padding: var(--largePadding);
-      border-radius: var(--borderRadius);
-      height: var(--largeHeight);
-      width: var(--largeWidth);
+      padding: 25px;
+      height: 210px;
+      width: 210px;
     }
+
     div img {
-      height: var(--largeStickerHeight);
+      width: 140px;
+      height: 140px;
     }
   }
 </style>

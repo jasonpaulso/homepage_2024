@@ -1,32 +1,6 @@
 ---
 import ExperienceCard from './ExperienceCard.astro';
 
-const baseVars = {
-  marginTop: '80px',
-  small: {
-    marginTop: '100px',
-  },
-};
-
-const smallMediaVars = {
-  smallMarginTop: '100px',
-};
-
-const mediumMediaVars = {
-  mediumMarginTop: '120px',
-};
-
-const largeMediaVars = {
-  largeMarginTop: '140px',
-};
-
-const combinedVars = {
-  ...baseVars,
-  ...smallMediaVars,
-  ...mediumMediaVars,
-  ...largeMediaVars,
-};
-
 interface ExperienceCardProps {
   variant: number;
   headline: string;
@@ -62,13 +36,13 @@ const cards: ExperienceCardProps[] = [
   }
 </section>
 
-<style define:vars={combinedVars}>
+<style>
   .cards {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: var(--marginTop);
+    margin-top: 80px;
     > div:nth-child(1) {
       transform: rotate(-4deg);
       margin-right: auto;
@@ -95,7 +69,7 @@ const cards: ExperienceCardProps[] = [
 
   @media (min-width: 640px) {
     .cards {
-      margin-top: var(--smallMarginTop);
+      margin-top: '100px';
       > div:nth-child(1) {
         margin-right: auto;
         margin-left: 0;
@@ -117,7 +91,7 @@ const cards: ExperienceCardProps[] = [
 
   @media (min-width: 1024px) {
     .cards {
-      margin-top: var(--mediumMarginTop);
+      margin-top: 120px;
       > div:nth-child(1) {
         margin-right: auto;
         margin-left: 0;
@@ -139,7 +113,7 @@ const cards: ExperienceCardProps[] = [
 
   @media (min-width: 1440px) {
     .cards {
-      margin-top: var(--largeMarginTop);
+      margin-top: 140px;
       > div:nth-child(1) {
         margin-right: auto;
         margin-left: 108px;

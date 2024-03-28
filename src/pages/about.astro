@@ -7,11 +7,15 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
-  <PageHeader headline="I’m also a dog dad and a video game aficionado. " sticker="memoji-about" />
+  <PageHeader headline="I'm also a dog dad and a video game aficionado. " sticker="memoji-about" />
   <section>
-    <BodyText />
-    <div>
-      <ExperienceCard headline={'LinkedIn'} statement={' '} variant="3" />
+    <div class="content-wrapper">
+      <div><BodyText /></div>
+      <div class="experience-card-column">
+        <div class="experience-card-wrapper">
+          <ExperienceCard headline={'LinkedIn'} statement={' '} variant="3" />
+        </div>
+      </div>
     </div>
   </section>
   <Footer />
@@ -22,13 +26,16 @@ import Footer from '../components/Footer.astro';
     margin-top: 80px;
   }
 
-  section > div {
-    margin-top: 80px;
-    > div:nth-child(1) {
-      transform: rotate(4deg);
-      margin-right: 0;
-      margin-left: auto;
-    }
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+
+  .experience-card-wrapper {
+    transform: rotate(4deg);
+    margin-right: 0;
+    margin-left: auto;
   }
 
   @media (min-width: 640px) {
@@ -40,6 +47,17 @@ import Footer from '../components/Footer.astro';
   @media (min-width: 1024px) {
     section {
       margin-top: 120px;
+    }
+
+    .content-wrapper {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .experience-card-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
     }
   }
 

@@ -8,101 +8,154 @@ interface Props {
 }
 
 const { sticker = 'memoji-home', headline } = Astro.props;
-
-const baseVars = {
-  color: '#222',
-  leadingTrim: 'both',
-  textEdge: 'cap',
-  fontFamily: 'Helvetica Now Display',
-  fontSize: '36px',
-  fontStyle: 'normal',
-  fontWeight: '400',
-  lineHeight: '110%', // 39.6px
-  marginTop: '24px',
-  gap: '106px',
-  display: 'flex',
-  flexDirection: 'column',
-};
-
-const smallMediaVars = {
-  smallFontSize: '64px',
-  smallLineHeight: '110%', // 70.4px
-  smallMarginTop: '48px',
-  smallGap: '130px',
-};
-
-const mediumMediaVars = {
-  mediumFontSize: '96px',
-  mediumLineHeight: '110%', // 105.6px
-  mediumMarginTop: '64px',
-  mediumGap: '152px',
-};
-
-const largeMediaVars = {
-  largeFontSize: '128px',
-  largeLineHeight: '110%', // 140.8px
-  largeMarginTop: '96px',
-  largeGap: '164px',
-};
-
-const combinedVars = { ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars };
+let headlineText = '';
 ---
 
 <header>
   <Sticker stickerType={sticker} />
-  <h1>{headline}</h1>
+  <h1 id="headline" data-headline={headline}>{headlineText}<span id="cursor"></span></h1>
 </header>
 
-<style define:vars={combinedVars}>
+<script>
+  function cloneHeader(headerElement: Element) {
+    const clonedHeader = headerElement.cloneNode(true) as HTMLElement;
+    document.body.appendChild(clonedHeader);
+
+    const style = getComputedStyle(headerElement);
+    clonedHeader.style.fontSize = style.fontSize;
+    clonedHeader.style.fontFamily = style.fontFamily;
+    clonedHeader.style.lineHeight = style.lineHeight;
+    clonedHeader.style.width = style.width;
+    clonedHeader.style.position = 'absolute';
+    clonedHeader.style.visibility = 'hidden';
+    clonedHeader.style.whiteSpace = 'nowrap';
+
+    return clonedHeader;
+  }
+
+  function typeWriter(parentNode: Node, cursor: Node, text: string | null) {
+    const chars = text!.split('');
+    let charIndex = 0;
+
+    const interval = setInterval(() => {
+      const char = chars[charIndex];
+      const span = document.createElement('span');
+      span.style.fontKerning = 'none';
+      span.textContent = char;
+      parentNode.insertBefore(span, cursor);
+      charIndex += 1;
+      if (charIndex === chars.length) {
+        clearInterval(interval);
+        // Replace the headline text with the full text
+        parentNode.textContent = text;
+        parentNode.appendChild(cursor);
+      }
+    }, 50);
+  }
+  const headerElement = document.querySelector('header');
+  if (headerElement) {
+    const headlineElement = document.getElementById('headline')!;
+    const headline = headlineElement.getAttribute('data-headline');
+    const cursor = document.getElementById('cursor')!;
+
+    const textNode = document.createTextNode('');
+    headlineElement.appendChild(textNode);
+
+    const clonedHeader = cloneHeader(headerElement);
+    const clonedHeadline = clonedHeader.querySelector('#headline')!;
+    clonedHeadline.textContent = headline;
+
+    const height = clonedHeader.offsetHeight;
+    document.body.removeChild(clonedHeader);
+
+    headerElement.style.height = `100%`;
+    headerElement.style.minHeight = `${height * 2}px`;
+
+    typeWriter(headlineElement, cursor, headline);
+  }
+</script>
+
+<style>
+  #cursor {
+    display: inline-block;
+    margin-left: 0.1em;
+    width: 0.1em;
+    height: 36px;
+    background-color: black;
+    animation: blink 0.8s infinite;
+  }
+  @keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   header {
-    margin-top: var(--marginTop);
-    gap: var(--gap);
-    display: var(--display);
-    flex-direction: var(--flexDirection);
+    margin-top: 24px;
+    gap: 106px;
+    display: flex;
+    flex-direction: column;
   }
 
   h1 {
-    color: var(--color);
-    font-family: var(--fontFamily);
-    font-size: var(--fontSize);
-    font-style: var(--fontStyle);
-    font-weight: var(--fontWeight);
-    line-height: var(--lineHeight);
+    color: #222;
+    font-family: 'Helvetica Now Display';
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
   }
 
   @media screen and (min-width: 640px) {
     header {
-      margin-top: var(--smallMarginTop);
-      gap: var(--smallGap);
+      margin-top: 48px;
+      gap: 130px;
     }
 
     h1 {
-      font-size: var(--smallFontSize);
-      line-height: var(--smallLineHeight);
+      font-size: 64px;
+      line-height: 110%;
+    }
+
+    #cursor {
+      height: 64px;
     }
   }
 
   @media screen and (min-width: 1024px) {
     header {
-      margin-top: var(--mediumMarginTop);
-      gap: var(--mediumGap);
+      margin-top: 64px;
+      gap: 152px;
     }
 
     h1 {
-      font-size: var(--mediumFontSize);
-      line-height: var(--mediumLineHeight);
+      font-size: 96px;
+      line-height: 110%;
+    }
+
+    #cursor {
+      height: 96px;
     }
   }
 
   @media screen and (min-width: 1440px) {
     header {
-      margin-top: var(--largeMarginTop);
-      gap: var(--largeGap);
+      margin-top: 96px;
+      gap: 164px;
     }
 
     h1 {
-      font-size: var(--largeFontSize);
-      line-height: var(--largeLineHeight);
+      font-size: 128px;
+      line-height: 110%;
+    }
+
+    #cursor {
+      height: 128px;
     }
   }
 </style>
