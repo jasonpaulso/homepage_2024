@@ -1,15 +1,68 @@
 ---
 const pathname = Astro.url.pathname;
-console.log('🚀 ~ pathname:', pathname);
-// const currentPath = pathname.slice(1);
+const navProps = {
+  links: [
+    {
+      title: 'Home',
+      href: '/',
+    },
+    {
+      title: 'About',
+      href: '/about/',
+    },
+    {
+      title: 'Email',
+      href: 'mailto:jason@schulz.studio',
+    },
+  ],
+};
+const findActiveLinkIndex = (links: { href: string }[]) => {
+  const activeLinkIndex = links.findIndex((link) => link.href === pathname);
+  return activeLinkIndex;
+};
+const activeLinkIndex = findActiveLinkIndex(navProps.links);
 ---
 
 <nav class={'nav-container'}>
-  <a class={pathname === '/' ? 'active' : ''} href={'/'}>Home</a>
-  <a class={pathname === '/about/' ? 'active' : ''} href={'/about/'}>About</a>
-  <a class={pathname === '/email/' ? 'active' : ''} href={'mailto:jason@schulz.studio'}>Email</a>
+  {
+    navProps.links.map((link, index) => (
+      <a href={link.href} data-active={index === activeLinkIndex}>
+        {link.title}
+      </a>
+    ))
+  }
+  <span class="slider"></span>
 </nav>
-
+<script>
+  const nav = document.querySelector('nav') as HTMLElement;
+  const links = nav?.querySelectorAll('a') as NodeListOf<HTMLElement>;
+  const slider = nav?.querySelector('.slider') as HTMLElement;
+  const activeLink = nav.querySelector('a[data-active]') as HTMLElement;
+  function setSliderPosition(position: number) {
+    if (slider) {
+      const linkWidth = activeLink.offsetWidth;
+      const linkTop = activeLink.offsetTop;
+      const linkBottom = linkTop + activeLink.offsetHeight;
+      const linkStyle = getComputedStyle(activeLink);
+      const { borderRadius } = linkStyle;
+      const sliderStyles = { display: 'block', width: `${linkWidth}px`, top: `${linkTop}px`, bottom: `${linkBottom}px`, height: `${linkBottom - linkTop}px`, 'border-radius': borderRadius, transform: `translateX(${position}px)` };
+      Object.assign(slider.style, sliderStyles);
+    }
+  }
+  links.forEach((link) => {
+    link.addEventListener('mouseenter', () => {
+      const sliderPosition = link.offsetLeft;
+      setSliderPosition(sliderPosition);
+    });
+    link.addEventListener('mouseleave', () => {
+      setSliderPosition(activeLink?.offsetLeft);
+    });
+  });
+  setSliderPosition(activeLink?.offsetLeft);
+  window.addEventListener('resize', () => {
+    setSliderPosition(activeLink?.offsetLeft);
+  });
+</script>
 <style>
   nav {
     position: sticky;
@@ -24,7 +77,6 @@ console.log('🚀 ~ pathname:', pathname);
     border-radius: 10px;
     z-index: 1000;
   }
-
   a {
     display: flex;
     width: 100%;
@@ -37,22 +89,25 @@ console.log('🚀 ~ pathname:', pathname);
     font-family: 'Helvetica Now Display';
     font-size: 10px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: bold;
     line-height: 110%;
     padding: 11.5px 0;
     height: 31px;
-    transition: background 0.2s ease-in-out;
+    position: relative;
+    z-index: 1;
+  }
+  nav .slider {
+    position: absolute;
+    left: 0;
+    background-color: #ffd600;
+    z-index: 0;
+    display: none;
+    transition: transform 0.5s cubic-bezier(0, 0.55, 0.45, 1);
   }
 
-  a.active,
-  a:hover {
-    background: #ffd600;
+  nav a:hover + .slider {
+    transition: transform 0.3s cubic-bezier(0, 0.55, 0.45, 1);
   }
-
-  nav:hover a:not(:hover) {
-    background: #fff;
-  }
-
   @media screen and (min-width: 640px) {
     nav {
       width: 396px;
@@ -60,7 +115,6 @@ console.log('🚀 ~ pathname:', pathname);
       border-radius: 14px;
       top: 24px;
     }
-
     a {
       padding: 13.5px 0;
       border-radius: 8px;
@@ -68,7 +122,6 @@ console.log('🚀 ~ pathname:', pathname);
       height: 36px;
     }
   }
-
   @media screen and (min-width: 1024px) {
     nav {
       width: 424px;
@@ -76,7 +129,6 @@ console.log('🚀 ~ pathname:', pathname);
       border-radius: 16px;
       top: 36px;
     }
-
     a {
       padding: unset;
       border-radius: 8px;
@@ -84,7 +136,6 @@ console.log('🚀 ~ pathname:', pathname);
       height: 40px;
     }
   }
-
   @media screen and (min-width: 1440px) {
     nav {
       width: 464px;
@@ -92,7 +143,6 @@ console.log('🚀 ~ pathname:', pathname);
       border-radius: 20px;
       top: 48px;
     }
-
     a {
       padding: 17.5px 0;
       border-radius: 10px;
