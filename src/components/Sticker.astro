@@ -36,6 +36,8 @@ const returnImage = () => {
         altText: 'Anton Schulz logo',
         src: logoAs,
         className: 'logo',
+        isLink: true,
+        href: 'https://antonschulz.com',
       };
   }
 };
@@ -44,33 +46,56 @@ const stickerData = returnImage();
 ---
 
 <div class={stickerData.className}>
-  <Image src={stickerData.src} alt={stickerData.altText} />
+  {
+    stickerData.href ? (
+      <a href={stickerData.href} target="_blank">
+        <Image src={stickerData.src} alt={stickerData.altText} />
+      </a>
+    ) : (
+      <Image src={stickerData.src} alt={stickerData.altText} />
+    )
+  }
 </div>
 
 <style>
   div {
-    align-self: flex-end;
-    padding: 15px;
-    border-radius: 100px;
-    background: #fff;
     height: 120px;
     width: 120px;
     max-width: 100%;
     justify-content: center;
     align-items: center;
     display: flex;
-
-    /* 'memoji' ? '#FFD600' : '#D4D7B9' */
+    padding: 15px;
+    border-radius: 100px;
+    background: #fff;
+    display: flex;
+    align-self: flex-end;
+    position: relative;
+    transition: scale 1s ease;
   }
 
+  a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  div:has(a:hover) {
+    transform: scale(1.01);
+  }
   .logo {
     background-color: #d4d7b9;
   }
+
   .memoji {
     background-color: #ffd600;
   }
 
-  div img {
+  img {
     object-fit: contain;
     width: 80px;
     height: 80px;
@@ -84,7 +109,7 @@ const stickerData = returnImage();
       width: 150px;
     }
 
-    div img {
+    img {
       width: 100px;
       height: 100px;
     }
@@ -97,7 +122,7 @@ const stickerData = returnImage();
       width: 180px;
     }
 
-    div img {
+    img {
       width: 115px;
       height: 115px;
     }
@@ -110,7 +135,7 @@ const stickerData = returnImage();
       width: 210px;
     }
 
-    div img {
+    img {
       width: 140px;
       height: 140px;
     }
