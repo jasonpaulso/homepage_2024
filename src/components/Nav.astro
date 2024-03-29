@@ -49,18 +49,35 @@ const activeLinkIndex = findActiveLinkIndex(navProps.links);
       Object.assign(slider.style, sliderStyles);
     }
   }
-  links.forEach((link) => {
-    link.addEventListener('mouseenter', () => {
-      const sliderPosition = link.offsetLeft;
-      setSliderPosition(sliderPosition);
-    });
-    link.addEventListener('mouseleave', () => {
-      setSliderPosition(activeLink?.offsetLeft);
-    });
-  });
-  setSliderPosition(activeLink?.offsetLeft);
-  window.addEventListener('resize', () => {
+  function handleMouseEnter(this: HTMLElement) {
+    const sliderPosition = this.offsetLeft;
+    setSliderPosition(sliderPosition);
+  }
+
+  function handleMouseLeave() {
     setSliderPosition(activeLink?.offsetLeft);
+  }
+
+  function handleResize() {
+    setSliderPosition(activeLink?.offsetLeft);
+  }
+
+  links.forEach((link) => {
+    link.addEventListener('mouseenter', handleMouseEnter);
+  });
+
+  setSliderPosition(activeLink?.offsetLeft);
+
+  nav.addEventListener('mouseleave', handleMouseLeave);
+
+  window.addEventListener('resize', handleResize);
+
+  window.addEventListener('beforeunload', () => {
+    links.forEach((link) => {
+      link.removeEventListener('mouseenter', handleMouseEnter);
+    });
+    nav.removeEventListener('mouseleave', handleMouseLeave);
+    window.removeEventListener('resize', handleResize);
   });
 </script>
 <style>

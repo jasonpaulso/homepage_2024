@@ -1,4 +1,5 @@
 ---
+import EmailNotification from '../components/EmailNotification.astro';
 import Nav from '../components/Nav.astro';
 
 interface Props {
@@ -42,6 +43,7 @@ const largeMediaVars = {
     <main>
       <Nav />
       <slot />
+      <EmailNotification />
     </main>
   </body>
 </html>
