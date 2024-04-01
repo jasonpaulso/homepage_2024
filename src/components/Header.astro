@@ -33,7 +33,7 @@ let headlineText = '';
     return clonedHeader;
   }
 
-  function typeWriter(parentNode: Node, cursor: Node, text: string | null) {
+  const typeWriter = async (parentNode: Node, cursor: Node, text: string | null) => {
     const chars = text!.split('');
     let charIndex = 0;
 
@@ -51,7 +51,8 @@ let headlineText = '';
         parentNode.appendChild(cursor);
       }
     }, 50);
-  }
+    return;
+  };
   const headerElement = document.querySelector('header');
   if (headerElement) {
     const headlineElement = document.getElementById('headline')!;
@@ -71,7 +72,20 @@ let headlineText = '';
     headerElement.style.height = `100%`;
     headerElement.style.minHeight = `${height * 2}px`;
 
-    typeWriter(headlineElement, cursor, headline);
+    await typeWriter(headlineElement, cursor, headline);
+
+    const resetHeaderSize = () => {
+      headerElement.style.height = '';
+      headerElement.style.minHeight = '';
+    };
+
+    //reset headerElement height on resize
+    window.addEventListener('resize', resetHeaderSize);
+
+    // remove event listener on unmount
+    window.addEventListener('beforeunload', () => {
+      window.removeEventListener('resize', resetHeaderSize);
+    });
   }
 </script>
 
