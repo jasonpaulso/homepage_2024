@@ -83,6 +83,10 @@ const stickerData = returnImage();
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.5s cubic-bezier(0, 0.55, 0.45, 1);
+    :hover {
+      cursor: pointer;
+    }
   }
   div:has(a:hover) {
     transform: scale(1.01);

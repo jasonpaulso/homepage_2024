@@ -5,7 +5,14 @@ const { showsAttribution } = Astro.props;
 ---
 
 <footer>
-  {showsAttribution && <Sticker stickerType="logo-as" />}
+  {
+    showsAttribution && (
+      <div>
+        <p>Designed with ❤️ by</p>
+        <Sticker stickerType="logo-as" />
+      </div>
+    )
+  }
   <h2>&copy; 2024</h2>
 </footer>
 
@@ -15,6 +22,18 @@ const { showsAttribution } = Astro.props;
     text-align: center;
     font-family: 'Helvetica Now Display';
     margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  div {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    row-gap: 8px;
   }
 
   h2 {
