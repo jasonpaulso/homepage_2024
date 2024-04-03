@@ -32,8 +32,12 @@ const { showsAttribution } = Astro.props;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    align-self: flex-start;
+    align-self: center;
     row-gap: 8px;
+    margin-bottom: 28px;
+    > * {
+      align-self: center;
+    }
   }
 
   h2 {
@@ -52,6 +56,9 @@ const { showsAttribution } = Astro.props;
       font-size: 64px;
       line-height: 100%; /* 64px */
     }
+    div {
+      margin-bottom: 100px;
+    }
   }
 
   @media screen and (min-width: 1024px) {
@@ -63,6 +70,13 @@ const { showsAttribution } = Astro.props;
       font-size: 96px;
       line-height: 100%; /* 96px */
     }
+    div {
+      margin-bottom: 120px;
+      align-self: flex-start;
+      > * {
+        align-self: flex-start;
+      }
+    }
   }
 
   @media screen and (min-width: 1440px) {
@@ -73,6 +87,9 @@ const { showsAttribution } = Astro.props;
     h2 {
       font-size: 128px;
       line-height: 100%; /* 128px */
+    }
+    div {
+      margin-bottom: 140px;
     }
   }
 </style>

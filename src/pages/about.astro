@@ -4,10 +4,20 @@ import PageHeader from '../components/Header.astro';
 import BodyText from '../components/BodyText.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import Footer from '../components/Footer.astro';
+
+const headlines = [
+  'I build dynamic web apps and responsive UIs',
+  'I have expertise in developing accessible, mobile-first applications.',
+  'I collaborate with designers, engineers, and product leads to deliver best-in-class user experiences.',
+  'I am skilled at solving complex technical challenges and adapting to new technologies.',
+  'I have experience with React, TypeScript, Azure/Azure DevOps, Craft CMS, Figma, WordPress, and more.',
+  'I am passionate about creating innovative features in fast-paced, agile  environments.',
+  'I am also a husband, dog dad, and video game aficionado.',
+];
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
-  <PageHeader headline="I'm also a dog dad and a video game aficionado. " sticker="memoji-about" />
+  <PageHeader sticker="memoji-about" headlines={headlines} />
   <section>
     <div class="content-wrapper">
       <div><BodyText /></div>

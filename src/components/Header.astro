@@ -4,88 +4,72 @@ import type { Props as StickerProps } from './Sticker.astro';
 
 interface Props {
   sticker?: StickerProps['stickerType'];
-  headline: string;
+  headlines: string[];
 }
 
-const { sticker = 'memoji-home', headline } = Astro.props;
-let headlineText = '';
+const { sticker = 'memoji-home', headlines } = Astro.props;
 ---
 
 <header>
   <Sticker stickerType={sticker} />
-  <h1 id="headline" data-headline={headline}>{headlineText}<span id="cursor"></span></h1>
+  <h1 id="headline" data-headlines={JSON.stringify(headlines)}><span id="cursor"></span></h1>
 </header>
 
 <script>
-  function cloneHeader(headerElement: Element) {
-    const clonedHeader = headerElement.cloneNode(true) as HTMLElement;
-    document.body.appendChild(clonedHeader);
-
-    const style = getComputedStyle(headerElement);
-    clonedHeader.style.fontSize = style.fontSize;
-    clonedHeader.style.fontFamily = style.fontFamily;
-    clonedHeader.style.lineHeight = style.lineHeight;
-    clonedHeader.style.width = style.width;
-    clonedHeader.style.position = 'absolute';
-    clonedHeader.style.visibility = 'hidden';
-    clonedHeader.style.whiteSpace = 'nowrap';
-
-    return clonedHeader;
-  }
-
-  const typeWriter = async (parentNode: Node, cursor: Node, text: string | null) => {
-    const chars = text!.split('');
-    let charIndex = 0;
-
-    const interval = setInterval(() => {
-      const char = chars[charIndex];
-      const span = document.createElement('span');
-      span.style.fontKerning = 'none';
-      span.textContent = char;
-      parentNode.insertBefore(span, cursor);
-      charIndex += 1;
-      if (charIndex === chars.length) {
-        clearInterval(interval);
-        // Replace the headline text with the full text
-        // parentNode.textContent = text;
-        parentNode.appendChild(cursor);
-      }
-    }, 50);
-    return;
-  };
-  const headerElement = document.querySelector('header');
-  if (headerElement) {
-    const headlineElement = document.getElementById('headline')!;
-    const headline = headlineElement.getAttribute('data-headline');
-    const cursor = document.getElementById('cursor')!;
-
-    const textNode = document.createTextNode('');
-    headlineElement.appendChild(textNode);
-
-    const clonedHeader = cloneHeader(headerElement);
-    const clonedHeadline = clonedHeader.querySelector('#headline')!;
-    clonedHeadline.textContent = headline;
-
-    const height = clonedHeader.offsetHeight;
-    document.body.removeChild(clonedHeader);
-
-    headerElement.style.height = `100%`;
-    headerElement.style.minHeight = `${height * 2}px`;
-
-    await typeWriter(headlineElement, cursor, headline);
-
-    const resetHeaderSize = () => {
-      headerElement.style.height = '';
-      headerElement.style.minHeight = '';
-    };
-
-    //reset headerElement height on resize
-    window.addEventListener('resize', resetHeaderSize);
-
-    // remove event listener on unmount
-    window.addEventListener('beforeunload', () => {
-      window.removeEventListener('resize', resetHeaderSize);
+  const typeWriter = async (parentElement: HTMLElement, cursor: Node, text: string | null) => {
+    return new Promise(async (resolve) => {
+      const chars = text!.split('');
+      let charIndex = 0;
+      const interval = setInterval(async () => {
+        parentElement.textContent = text!.slice(0, charIndex);
+        parentElement.appendChild(cursor);
+        charIndex += 1;
+        if (charIndex === chars.length) {
+          clearInterval(interval);
+          parentElement.appendChild(cursor);
+          resolve(null);
+        }
+      }, 100);
     });
+  };
+
+  const deleteSelectedText = async (headlineElement: HTMLElement | null, cursor: Node) => {
+    if (headlineElement) {
+      const range = document.createRange();
+      range.selectNodeContents(headlineElement);
+      const selection = window.getSelection();
+      selection!.removeAllRanges();
+      selection!.addRange(range);
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Adjust the delay (in milliseconds) as needed
+
+      while (headlineElement.firstChild && headlineElement.firstChild !== cursor) {
+        headlineElement.removeChild(headlineElement.firstChild);
+      }
+
+      selection!.removeAllRanges();
+    }
+  };
+
+  const animateHeadlines = async (headlineElement: HTMLElement, cursor: Node, headlines: string[]) => {
+    try {
+      for (let i = 0; i < headlines.length; i++) {
+        await typeWriter(headlineElement, cursor, headlines[i]);
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+        if (i < headlines.length - 1) {
+          await deleteSelectedText(headlineElement, cursor);
+        }
+      }
+    } catch (error) {
+      console.error('Error animating headlines:', error);
+    }
+  };
+
+  const headlineElement = document.getElementById('headline');
+  const headlines = JSON.parse(headlineElement?.getAttribute('data-headlines') ?? '[]');
+  const cursor = document.getElementById('cursor');
+
+  if (headlineElement && cursor) {
+    animateHeadlines(headlineElement, cursor, headlines);
   }
 </script>
 
@@ -93,11 +77,13 @@ let headlineText = '';
   #cursor {
     display: inline-block;
     margin-left: 0.1em;
-    width: 0.1em;
-    height: 36px;
-    background-color: black;
-    animation: blink 0.8s infinite;
+    width: 0.08em;
+    height: 100%;
+    vertical-align: top;
+    background-color: rgba(0, 0, 0, 0.714);
+    animation: blink 1s infinite;
   }
+
   @keyframes blink {
     0% {
       opacity: 1;
@@ -123,6 +109,7 @@ let headlineText = '';
     font-style: normal;
     font-weight: 400;
     line-height: 110%;
+    font-kerning: none;
   }
 
   @media screen and (min-width: 640px) {
@@ -133,11 +120,10 @@ let headlineText = '';
 
     h1 {
       font-size: 64px;
-      line-height: 110%;
     }
 
     #cursor {
-      height: 64px;
+      height: 60px;
     }
   }
 
@@ -149,11 +135,10 @@ let headlineText = '';
 
     h1 {
       font-size: 96px;
-      line-height: 110%;
     }
 
     #cursor {
-      height: 96px;
+      height: 90px;
     }
   }
 
@@ -165,11 +150,10 @@ let headlineText = '';
 
     h1 {
       font-size: 128px;
-      line-height: 110%;
     }
 
     #cursor {
-      height: 128px;
+      height: 118px;
     }
   }
 </style>
