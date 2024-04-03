@@ -5,60 +5,51 @@ import type { Props as StickerProps } from './Sticker.astro';
 interface Props {
   sticker?: StickerProps['stickerType'];
   headlines: string[];
+  stickerIsAnimated?: boolean;
 }
 
 const { sticker = 'memoji-home', headlines } = Astro.props;
 ---
 
 <header>
-  <Sticker stickerType={sticker} />
+  <Sticker stickerType={sticker} id="sticker" data-sticker-type={sticker} />
   <h1 id="headline" data-headlines={JSON.stringify(headlines)}><span id="cursor"></span></h1>
 </header>
 
 <script>
-  const typeWriter = async (parentElement: HTMLElement, cursor: Node, text: string | null) => {
-    return new Promise(async (resolve) => {
-      const chars = text!.split('');
-      let charIndex = 0;
-      const interval = setInterval(async () => {
-        parentElement.textContent = text!.slice(0, charIndex);
-        parentElement.appendChild(cursor);
-        charIndex += 1;
-        if (charIndex === chars.length) {
-          clearInterval(interval);
-          parentElement.appendChild(cursor);
-          resolve(null);
-        }
-      }, 100);
-    });
+  import { typeWriter, deleteSelectedText } from '../../public/utils/typewriter';
+
+  const stickerElement = document.getElementById('sticker') as HTMLElement;
+  const stickerType = stickerElement!.getAttribute('data-sticker-type')!;
+  const stickerSource = {
+    'memoji-home': '../../images/stickers/Memoji_Home.png',
+    'memoji-about': '../../images/stickers/Memoji_About.png',
+    'memoji-macbook': '../../images/stickers/Memoji_MacBook.png',
   };
 
-  const deleteSelectedText = async (headlineElement: HTMLElement | null, cursor: Node) => {
-    if (headlineElement) {
-      const range = document.createRange();
-      range.selectNodeContents(headlineElement);
-      const selection = window.getSelection();
-      selection!.removeAllRanges();
-      selection!.addRange(range);
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Adjust the delay (in milliseconds) as needed
-
-      while (headlineElement.firstChild && headlineElement.firstChild !== cursor) {
-        headlineElement.removeChild(headlineElement.firstChild);
-      }
-
-      selection!.removeAllRanges();
-    }
+  const updateStickerSrc = (imageKey: keyof typeof stickerSource) => {
+    const src = stickerSource[imageKey];
+    const imgElement = stickerElement.querySelector('img') as HTMLImageElement;
+    imgElement.src = src;
   };
 
+  const setIsAnimated = (isAnimated: boolean) => {
+    stickerElement.setAttribute('data-is-animated', isAnimated.toString());
+  };
   const animateHeadlines = async (headlineElement: HTMLElement, cursor: Node, headlines: string[]) => {
     try {
-      for (let i = 0; i < headlines.length; i++) {
-        await typeWriter(headlineElement, cursor, headlines[i]);
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-        if (i < headlines.length - 1) {
+      for (const [index, headline] of headlines.entries()) {
+        updateStickerSrc('memoji-macbook');
+        setIsAnimated(true); // Set isAnimated to true when starting the typing animation
+        await typeWriter(headlineElement, cursor, headline);
+        setIsAnimated(false);
+        if (index < headlines.length - 1) {
+          updateStickerSrc('memoji-home');
+          await new Promise((resolve) => setTimeout(resolve, 5000));
           await deleteSelectedText(headlineElement, cursor);
         }
       }
+      updateStickerSrc(stickerType as keyof typeof stickerSource);
     } catch (error) {
       console.error('Error animating headlines:', error);
     }
@@ -72,6 +63,8 @@ const { sticker = 'memoji-home', headlines } = Astro.props;
     animateHeadlines(headlineElement, cursor, headlines);
   }
 </script>
+
+<!-- ... (CSS styles remain the same) ... -->
 
 <style>
   #cursor {
@@ -100,6 +93,7 @@ const { sticker = 'memoji-home', headlines } = Astro.props;
     gap: 106px;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
   }
 
   h1 {

@@ -3,24 +3,36 @@ import { Image } from 'astro:assets';
 import logoAs from '../../public/images/stickers/as-logo.png';
 import stickerAbout from '../../public/images/stickers/Memoji_About.png';
 import stickerHome from '../../public/images/stickers/Memoji_Home.png';
+import stickerMacbook from '../../public/images/stickers/Memoji_MacBook.png';
 
 export interface Props {
-  stickerType: 'memoji-about' | 'memoji-home' | 'logo-as';
+  stickerType: 'memoji-about' | 'memoji-home' | 'logo-as' | 'memoji-macbook';
+  id?: string;
+  'data-is-animated'?: boolean;
+  'data-sticker-type'?: string;
+  className?: string;
 }
-const { stickerType } = Astro.props;
-const stickerProps = stickerType.split('-');
-
-const imageCategory = stickerProps[0];
-const imageIdentifier = stickerProps[1];
+const { stickerType, id, className, 'data-is-animated': dataIsAnimated, 'data-sticker-type': dataStickerType } = Astro.props;
+const stickerFromData = dataStickerType || stickerType;
+const stickerPropsFromData = stickerFromData.split('-');
+console.log(Astro.props);
+const imageCategoryFromData = stickerPropsFromData[0];
+const imageIdentifierFromData = stickerPropsFromData[1];
 
 const returnImage = () => {
-  switch (imageCategory) {
+  switch (imageCategoryFromData) {
     case 'memoji':
-      switch (imageIdentifier) {
+      switch (imageIdentifierFromData) {
         case 'about':
           return {
             altText: 'Jason Schulz Memoji with peace fingers',
             src: stickerAbout,
+            className: 'memoji',
+          };
+        case 'macbook':
+          return {
+            altText: 'Jason Schulz Memoji with a MacBook',
+            src: stickerMacbook,
             className: 'memoji',
           };
 
@@ -45,7 +57,7 @@ const returnImage = () => {
 const stickerData = returnImage();
 ---
 
-<div class={stickerData.className}>
+<div class:list={[stickerData.className]} class={className} data-is-animated={dataIsAnimated} id={id} data-sticker-type={stickerType}>
   {
     stickerData.href ? (
       <a href={stickerData.href} target="_blank">
@@ -93,6 +105,23 @@ const stickerData = returnImage();
   }
   .logo {
     background-color: #d4d7b9;
+  }
+  @keyframes partial-rotation {
+    0%,
+    100% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+  }
+
+  div[data-is-animated='true'] {
+    animation: partial-rotation 1s ease-in-out infinite;
+  }
+
+  .animate-rotation {
+    animation: partial-rotation 1s ease-in-out infinite;
   }
 
   .memoji {
