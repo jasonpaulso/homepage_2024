@@ -1,5 +1,5 @@
 ---
-import ExperienceCard from './ExperienceCard.astro';
+import Card from './Card.astro';
 
 interface ExperienceCardProps {
   variant: number;
@@ -37,7 +37,7 @@ const cards: ExperienceCardProps[] = [
 <section class="cards">
   {
     cards.map((card) => {
-      return <ExperienceCard {...card} key={card} />;
+      return <Card {...card} key={card} />;
     })
   }
 </section>

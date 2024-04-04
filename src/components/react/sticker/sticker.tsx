@@ -1,8 +1,8 @@
 import * as React from 'react';
-import memojiAboutImage from '../../images/memoji-about.png';
-import memojiHomeImage from '../../images/memoji-home.png';
-import logoAsImage from '../../images/as-logo.png';
-import memojiMacbookImage from '../../images/memoji-macbook.png';
+import memojiAboutImage from '../../../images/memoji-about.png';
+import memojiHomeImage from '../../../images/memoji-home.png';
+import logoAsImage from '../../../images/as-logo.png';
+import memojiMacbookImage from '../../../images/memoji-macbook.png';
 import './sticker.css';
 export interface StickerProps {
   defaultStickerImage: 'memoji-about' | 'memoji-home' | 'logo-as' | 'memoji-macbook';

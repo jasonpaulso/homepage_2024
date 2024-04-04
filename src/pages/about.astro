@@ -1,8 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/react/header.tsx';
+import Header from '../components/react/header/header.tsx';
 import BodyText from '../components/BodyText.astro';
-import ExperienceCard from '../components/ExperienceCard.astro';
+import Card from '../components/Card.astro';
 import Footer from '../components/Footer.astro';
 
 const headlines = [
@@ -23,7 +23,7 @@ const headlines = [
       <div><BodyText /></div>
       <div class="experience-card-column">
         <div class="experience-card-wrapper">
-          <ExperienceCard headline={'LinkedIn'} statement={' '} variant="3" url="https://linkedin.com/in/jasonpaulso" />
+          <Card headline={'LinkedIn'} statement={' '} variant="3" url="https://linkedin.com/in/jasonpaulso" />
         </div>
       </div>
     </div>
@@ -77,4 +77,3 @@ const headlines = [
     }
   }
 </style>
-../components/react/header.tsx

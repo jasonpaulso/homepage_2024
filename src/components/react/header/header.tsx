@@ -1,4 +1,4 @@
-import Sticker, { type StickerProps } from './sticker.tsx';
+import Sticker, { type StickerProps } from '../sticker/sticker.tsx';
 
 import { useEffect, useRef, useState } from 'react';
 import './header.css';
