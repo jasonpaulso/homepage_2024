@@ -41,7 +41,7 @@
   align-items: center;
 }
 .emoji > p {
-  font-size: 100px;
+  font-size: 80px;
 }
 .animate-rotation {
   animation: partial-rotation 1s ease-in-out infinite;
@@ -69,6 +69,9 @@
     width: 100px;
     height: 100px;
   }
+  .emoji > p {
+    font-size: 100px;
+  }
 }
 
 @media screen and (min-width: 1024px) {
@@ -82,6 +85,9 @@
     width: 115px;
     height: 115px;
   }
+  .emoji > p {
+    font-size: 115px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
@@ -94,5 +100,8 @@
   .sticker img {
     width: 140px;
     height: 140px;
+  }
+  .emoji > p {
+    font-size: 140px;
   }
 }
