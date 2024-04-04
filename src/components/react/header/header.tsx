@@ -9,9 +9,10 @@ interface HeaderProps {
 const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const cursorRef = useRef<HTMLElement | null>(null);
-  const headlineElement = headlineRef.current;
+
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
-  const [stickerImage, setStickerImage] = useState<StickerProps['defaultStickerImage']>(defaultStickerImage);
+  const [stickerImage, setStickerImage] = useState<StickerProps['defaultStickerImage'] | undefined>();
+
   const [currentEmoji, setCurrentEmoji] = useState<string | undefined>(undefined);
   const typeWriter = async (text: string): Promise<void> => {
     return new Promise((resolve) => {
@@ -56,14 +57,15 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
   const animateHeadlines = async () => {
     try {
       for (const [index, headline] of headlines.entries()) {
-        setStickerImage('memoji-macbook');
+        if (headlines.length === 1) {
+        }
         setCurrentEmoji(headline[0]);
         setStickerIsAnimating(true);
         await typeWriter(headline[1]);
         setStickerIsAnimating(false);
 
         if (index < headlines.length - 1) {
-          setStickerImage('memoji-home');
+          // setStickerImage('memoji-home');
 
           if (index === 0) {
             // Add a delay before selecting and deleting the first headline
@@ -74,6 +76,7 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
         }
       }
       setCurrentEmoji(undefined);
+
       setStickerImage(defaultStickerImage);
     } catch (error) {
       console.error('Error animating headlines:', error);

@@ -13,6 +13,7 @@
   position: relative;
   transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
   background-color: #ffd600;
+  overflow: hidden;
 }
 
 .sticker img {
@@ -40,8 +41,13 @@
   justify-content: center;
   align-items: center;
 }
-.emoji > p {
-  font-size: 80px;
+.emoji {
+  /* font-size: 80px; */
+  --symbol: 80px;
+  width: var(--symbol);
+  height: var(--symbol);
+  font-size: var(--symbol);
+  margin-top: 8px;
 }
 .animate-rotation {
   animation: partial-rotation 1s ease-in-out infinite;
@@ -69,8 +75,12 @@
     width: 100px;
     height: 100px;
   }
-  .emoji > p {
-    font-size: 100px;
+  .emoji {
+    --symbol: 100px;
+    width: var(--symbol);
+    height: var(--symbol);
+    font-size: var(--symbol);
+    margin-top: 10px;
   }
 }
 
@@ -85,8 +95,12 @@
     width: 115px;
     height: 115px;
   }
-  .emoji > p {
-    font-size: 115px;
+  .emoji {
+    --symbol: 115px;
+    width: var(--symbol);
+    height: var(--symbol);
+    font-size: var(--symbol);
+    margin-top: 11.5px;
   }
 }
 
@@ -102,6 +116,10 @@
     height: 140px;
   }
   .emoji > p {
-    font-size: 140px;
+    --symbol: 140px;
+    width: var(--symbol);
+    height: var(--symbol);
+    font-size: var(--symbol);
+    margin-top: 14px;
   }
 }

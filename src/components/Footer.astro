@@ -9,7 +9,7 @@ const { showsAttribution } = Astro.props;
     showsAttribution && (
       <div>
         <p>Designed with ❤️ by</p>
-        <Sticker defaultStickerImage="logo-as" className="logo what" link="https://anton.schulz.studio" client:only />
+        <Sticker defaultStickerImage="logo-as" className="logo what" link="https://anton.schulz.studio" client:load />
       </div>
     )
   }

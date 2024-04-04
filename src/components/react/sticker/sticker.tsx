@@ -14,7 +14,6 @@ export interface StickerProps {
 }
 
 export default function Sticker({ defaultStickerImage, isAnimated, className, emoji, link }: StickerProps) {
-  console.log('🚀 ~ Sticker ~ link:', link);
   let imageSrc;
   switch (defaultStickerImage) {
     case 'memoji-about':
@@ -30,7 +29,7 @@ export default function Sticker({ defaultStickerImage, isAnimated, className, em
       imageSrc = memojiMacbookImage;
       break;
     default:
-      imageSrc = memojiAboutImage; // Default case if defaultStickerImage doesn't match
+      imageSrc = memojiHomeImage; // Default case if defaultStickerImage doesn't match
   }
 
   const stickerRef = React.useRef<HTMLDivElement>(null);
