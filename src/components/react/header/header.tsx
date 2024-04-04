@@ -59,12 +59,11 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
         setStickerImage('memoji-macbook');
         setCurrentEmoji(headline[0]);
         setStickerIsAnimating(true);
+
         await typeWriter(headline[1]);
         setStickerIsAnimating(false);
 
         if (index < headlines.length - 1) {
-          setStickerImage('memoji-home');
-
           if (index === 0) {
             // Add a delay before selecting and deleting the first headline
             await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -89,9 +88,10 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
   }, [startAnimation]);
 
   useEffect(() => {
+    setStickerImage('memoji-home');
     setTimeout(() => {
       setStartAnimation(true);
-    }, 100);
+    }, 1000);
   }, []);
 
   return (
