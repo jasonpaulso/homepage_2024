@@ -1,23 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PageHeader from '../components/Header.astro';
+import Header from '../react/header.tsx';
 import BodyText from '../components/BodyText.astro';
 import ExperienceCard from '../components/ExperienceCard.astro';
 import Footer from '../components/Footer.astro';
 
 const headlines = [
-  'I build dynamic web apps and responsive UIs',
-  'I have expertise in developing accessible, mobile-first applications.',
-  'I collaborate with designers, engineers, and product leads to deliver best-in-class user experiences.',
-  'I am skilled at solving complex technical challenges and adapting to new technologies.',
-  'I have experience with React, TypeScript, Azure/Azure DevOps, Craft CMS, Figma, WordPress, and more.',
-  'I am passionate about creating innovative features in fast-paced, agile  environments.',
-  'I am also a husband, dog dad, and video game aficionado.',
+  ['🌿', 'Versatile software developer with a green thumb for frontend, cultivating clean code 💻 and thriving houseplants.'],
+  ['🍳', 'Software engineer specializing in frontend, former restaurant cook and current home chef, 🌐 serving up innovative web experiences.'],
+  ['🧘‍♂️', 'Frontend-focused developer, yoga enthusiast, and lifelong learner, embracing flexibility in 🚀 code and life.'],
+  ['☢️', 'Software developer by day, Fallout aficionado by night, crafting immersive 👨‍💻 frontend experiences and exploring the Wasteland.'],
+  ['🐶', 'Frontend specialist and proud dog dad, bringing 💡 creativity and enthusiasm to every project.'],
+  ['🚢', 'Former cruise line coordinator turned frontend developer, ⚓ navigating the high seas of web development.'],
+  ['', 'Driven frontend-focused engineer, fusing technical prowess and creativity for 🌟 captivating web experiences.'],
 ];
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
-  <PageHeader sticker="memoji-about" headlines={headlines} />
+  <Header headlines={headlines} defaultStickerImage="memoji-about" client:only />
   <section>
     <div class="content-wrapper">
       <div><BodyText /></div>

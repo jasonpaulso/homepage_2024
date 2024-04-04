@@ -11,19 +11,25 @@ const cards: ExperienceCardProps[] = [
   {
     headline: 'Front',
     statement:
-      'Most recently I planned and built landing pages for various marketing initiatives with a highly effective team of designers and engineers. I did this by drawing on my extensive understanding of front-end web development technologies including React, Typescript, Next.js, GraphQL, and Craft CMS.',
+      'As a frontend developer at Front, I collaborated with a talented team of designers and engineers to plan and build high-performing landing pages for diverse marketing campaigns. Leveraging my expertise in React, TypeScript, Next.js, GraphQL, and Craft CMS, I delivered engaging user experiences that drove successful results.',
     variant: 0,
   },
   {
     headline: 'Microsoft',
     statement:
-      'During this job tenure, I worked daily with a heterogeneous team of designers, researchers, product managers, and engineers to develop and maintain the Microsoft 365 range of consumer products. developed the front-end for Money in Excel and the React Excel plugin, which has tens of thousands of active users each month. ',
+      'As a Software Engineer II at Microsoft, I worked on delivering new features for the Microsoft 365 suite. I developed the frontend for Money in Excel, a React-based plugin with a substantial user base, and overhauled the map UI for the Microsoft 365 Accounts homepage. Utilizing React, Angular, TypeScript, and Azure DevOps, I implemented impactful solutions that enhanced user experiences.',
     variant: 1,
   },
   {
     headline: 'MileIQ by Microsoft',
-    statement: `In this position, I created web properties, in-app messages, and email campaigns in conjunction with designers, product managers, and stakeholders for Microsoft's MileIQ.`,
+    statement: `As the sole developer on the Marketing team at MileIQ post-acquisition, I rebuilt the website from legacy stack to Microsoft's infrastructure. Using React, Angular, JavaScript, and TypeScript, I optimized development processes and delivered a seamless user experience across web and mobile platforms, establishing MileIQ as a top-level page on Microsoft.com.`,
     variant: 2,
+  },
+  {
+    headline: 'Previously...',
+    statement:
+      'As a freelance web developer, I collaborated with design studios, nonprofits, and brands to create websites and email campaigns. I also led digital transformation efforts at a Bay Area design showroom, implementing technologies to support online product catalogs and sales tracking. These experiences honed my adaptability, problem-solving, and communication skills.',
+    variant: 4,
   },
 ];
 ---
@@ -48,47 +54,51 @@ const cards: ExperienceCardProps[] = [
       margin-right: auto;
       margin-left: 0;
     }
-
     > div:nth-child(2) {
       transform: rotate(8deg);
       margin-top: 43px;
       margin-right: 0;
       margin-left: auto;
       margin-top: 80px;
-      z-index: 2; /* Add this line */
+      z-index: 2;
     }
-
     > div:nth-child(3) {
       transform: rotate(-6deg);
       margin-top: -8px;
       margin-right: auto;
       margin-left: 0;
-      z-index: 1; /* Add this line */
+      z-index: 1;
+    }
+    > div:nth-child(4) {
+      transform: rotate(0deg);
+      margin-top: 50px;
+      margin-right: auto;
+      margin-left: 80px;
+      z-index: 1;
     }
   }
-
   @media (min-width: 640px) {
     .cards {
-      margin-top: '100px';
+      margin-top: 100px;
       > div:nth-child(1) {
         margin-right: auto;
         margin-left: 0;
       }
-
       > div:nth-child(2) {
         margin-right: 0;
-
         margin-top: 100px;
       }
-
       > div:nth-child(3) {
         margin-top: -50px;
         margin-right: auto;
         margin-left: 80px;
       }
+      > div:nth-child(4) {
+        margin-top: 60px;
+        margin-left: 100px;
+      }
     }
   }
-
   @media (min-width: 1024px) {
     .cards {
       margin-top: 120px;
@@ -96,21 +106,21 @@ const cards: ExperienceCardProps[] = [
         margin-right: auto;
         margin-left: 0;
       }
-
       > div:nth-child(2) {
         margin-right: 0;
-
         margin-top: -120px;
       }
-
       > div:nth-child(3) {
         margin-top: -100px;
         margin-right: auto;
         margin-left: 272px;
       }
+      > div:nth-child(4) {
+        margin-top: 80px;
+        margin-left: 150px;
+      }
     }
   }
-
   @media (min-width: 1440px) {
     .cards {
       margin-top: 140px;
@@ -118,16 +128,18 @@ const cards: ExperienceCardProps[] = [
         margin-right: auto;
         margin-left: 108px;
       }
-
       > div:nth-child(2) {
         margin-top: -130px;
         margin-right: 100px;
       }
-
       > div:nth-child(3) {
         margin-top: -122px;
         margin-right: auto;
         margin-left: auto;
+      }
+      > div:nth-child(4) {
+        margin-top: 100px;
+        margin-left: 200px;
       }
     }
   }

@@ -4,6 +4,7 @@ const variantColors = [
   { background: '#552e21', color: '#f8f7f1' },
   { background: '#dadada', color: '#222' },
   { background: '#D4D7B9', color: '#222' },
+  { background: '#4A6D7C', color: '#f8f7f1' },
 ];
 
 const { headline, statement, variant = 0, url } = Astro.props;
@@ -17,8 +18,7 @@ const colors = variantColors[variant];
       <h3>{headline || 'LinkedIn'}</h3>
       <p>
         {statement ||
-          `Most recently I planned and built landing pages for various marketing initiatives with a highly effective team of designers and engineers. I did this by drawing on my extensive understanding of front-end web development technologies including
-      React, Typescript, Next.js, GraphQL, and Craft CMS.`}
+          `As a frontend developer at Front, I collaborated with a talented team of designers and engineers to plan and build high-performing landing pages for diverse marketing campaigns. Leveraging my expertise in React, TypeScript, Next.js, GraphQL, and Craft CMS, I delivered engaging user experiences that drove successful results.`}
       </p>
     </a>
   ) : (

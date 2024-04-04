@@ -1,4 +1,6 @@
 ---
+import EmailNotification from './EmailNotification.astro';
+
 const pathname = Astro.url.pathname;
 const navProps = {
   links: [
@@ -23,16 +25,19 @@ const findActiveLinkIndex = (links: { href: string }[]) => {
 const activeLinkIndex = findActiveLinkIndex(navProps.links);
 ---
 
-<nav class={'nav-container'}>
-  {
-    navProps.links.map((link, index) => (
-      <a href={link.href} data-active={index === activeLinkIndex}>
-        {link.title}
-      </a>
-    ))
-  }
-  <span class="slider"></span>
-</nav>
+<>
+  <nav class={'nav-container'}>
+    {
+      navProps.links.map((link, index) => (
+        <a href={link.href} data-active={index === activeLinkIndex}>
+          {link.title}
+        </a>
+      ))
+    }
+    <span class="slider"></span>
+  </nav>
+  <EmailNotification />
+</>
 <script>
   const nav = document.querySelector('nav') as HTMLElement;
   const links = nav?.querySelectorAll('a') as NodeListOf<HTMLElement>;

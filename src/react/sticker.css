@@ -1,0 +1,97 @@
+.sticker {
+  height: 120px;
+  width: 120px;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 15px;
+  border-radius: 100px;
+  background: #fff;
+  display: flex;
+  align-self: flex-end;
+  position: relative;
+  transition: scale 1s ease;
+  background-color: #ffd600;
+}
+
+.sticker img {
+  object-fit: contain;
+  width: 80px;
+  height: 80px;
+}
+
+.logo {
+  background-color: #d4d7b9;
+  transition: transform 0.5s cubic-bezier(0, 0.55, 0.45, 1);
+}
+
+.logo:hover {
+  cursor: pointer;
+  transform: scale(105%);
+}
+
+.emoji {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.emoji > p {
+  font-size: 100px;
+}
+.animate-rotation {
+  animation: partial-rotation 1s ease-in-out infinite;
+}
+
+@keyframes partial-rotation {
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .sticker {
+    padding: 20px;
+    border-radius: 100px;
+    height: 150px;
+    width: 150px;
+  }
+
+  .sticker img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .sticker {
+    padding: 25px;
+    height: 180px;
+    width: 180px;
+  }
+
+  .sticker img {
+    width: 115px;
+    height: 115px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .sticker {
+    padding: 25px;
+    height: 210px;
+    width: 210px;
+  }
+
+  .sticker img {
+    width: 140px;
+    height: 140px;
+  }
+}

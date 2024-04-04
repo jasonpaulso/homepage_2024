@@ -1,12 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PageHeader from '../components/Header.astro';
+import Header from '../react/header';
 import Footer from '../components/Footer.astro';
 import Cards from '../components/Cards.astro';
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
-  <PageHeader sticker="memoji-home" headlines={['Hello! I’m Jason Schulz, a front-end developer and software engineer based in Brooklyn, New York.']} />
+  <Header defaultStickerImage="memoji-home" headlines={[['👋', 'Hello! I’m Jason Schulz, a front-end developer and software engineer based in Brooklyn, New York.']]} client:only />
   <Cards />
   <Footer showsAttribution />
 </Layout>
