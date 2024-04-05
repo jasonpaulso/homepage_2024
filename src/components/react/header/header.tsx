@@ -91,7 +91,7 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
     setStickerImage('memoji-home');
     setTimeout(() => {
       setStartAnimation(true);
-    }, 1000);
+    }, 100);
   }, []);
 
   return (

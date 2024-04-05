@@ -1,5 +1,4 @@
 ---
-import EmailNotification from '../components/EmailNotification.astro';
 import Nav from '../components/Nav.astro';
 
 interface Props {
@@ -37,6 +36,9 @@ const largeMediaVars = {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.ico?" />
     <link rel="icon" sizes="196x196" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/helvtica-now-display/HelveticaNowDisplay-Regular.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/fonts/helvtica-now-display/HelveticaNowDisplay-Bold.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2" as="font" type="font/woff" crossorigin />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
@@ -49,6 +51,31 @@ const largeMediaVars = {
 </html>
 
 <style is:global define:vars={{ ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars }}>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  @layer base {
+    @font-face {
+      font-family: 'Helvetica Now Display';
+      src: url('/fonts/helvtica-now-display/HelveticaNowDisplay-Regular.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Helvetica Now Display';
+      src: url('/fonts/helvtica-now-display/HelveticaNowDisplay-Bold.woff') format('woff');
+      font-weight: bold;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      src: url('/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+  }
+
   :root {
   }
   html {
@@ -69,25 +96,6 @@ const largeMediaVars = {
   code {
   }
 
-  @font-face {
-    font-family: 'Helvetica Now Display';
-    src: url('/fonts/helvtica-now-display/HelveticaNowDisplay-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'Helvetica Now Display';
-    src: url('/fonts/helvtica-now-display/HelveticaNowDisplay-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'JetBrains Mono';
-    src: url('/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
   main {
     margin: auto;
     padding: var(--padding);
