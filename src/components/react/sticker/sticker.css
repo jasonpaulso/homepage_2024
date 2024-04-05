@@ -43,8 +43,61 @@
 .emoji > p {
   font-size: 80px;
 }
-.animate-rotation {
-  animation: partial-rotation 1s ease-in-out infinite;
+.animate-rotation span {
+  animation: partial-rotation 1s ease infinite;
+}
+.animate-skew span {
+  animation: skew 4s ease infinite;
+}
+.animate-sizzle span {
+  animation: sizzle 1s ease infinite;
+}
+.animate-levitate span {
+  animation: levitate 3s ease infinite;
+}
+.animate-pulse span {
+  animation: pulse 2s ease infinite;
+}
+.animate-pant span {
+  animation: pant 0.5s ease infinite;
+}
+@keyframes pant {
+  0%,
+  100% {
+    transform: translateY(-5%);
+  }
+  50% {
+    transform: translateY(5%);
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(110%);
+  }
+  50% {
+    transform: scale(90%);
+  }
+}
+
+@keyframes levitate {
+  0%,
+  100% {
+    transform: translateY(-10%);
+  }
+  50% {
+    transform: translateY(10%);
+  }
+}
+
+@keyframes sizzle {
+  0%,
+  100% {
+    transform: translate(-10%, -10%);
+  }
+  50% {
+    transform: translate(10%, 10%);
+  }
 }
 
 @keyframes partial-rotation {
@@ -54,6 +107,16 @@
   }
   50% {
     transform: rotate(10deg);
+  }
+}
+
+@keyframes skew {
+  0%,
+  100% {
+    transform: skew(-10deg);
+  }
+  50% {
+    transform: skew(10deg);
   }
 }
 
