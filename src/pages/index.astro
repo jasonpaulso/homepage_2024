@@ -3,10 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/react/header/header';
 import Footer from '../components/Footer.astro';
 import Cards from '../components/Cards.astro';
+import jasonHomeImage from '../../public/images/stickers/Memoji_Home.png';
+import helloImage from '../../public/images/stickers/hello.png';
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
-  <Header defaultStickerImage="memoji-home" headlines={[['👋', 'Hello! I’m Jason Schulz, a front-end developer and software engineer based in Brooklyn, New York.', 'animate-rotation']]} client:visible />
+  <Header defaultImageMetadata={jasonHomeImage} headlines={[[helloImage, 'Hello! I’m Jason Schulz, a front-end developer and software engineer based in Brooklyn, New York.', 'animate-rotation']]} client:visible />
   <Cards />
   <Footer showsAttribution />
 </Layout>

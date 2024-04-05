@@ -1,32 +1,19 @@
 import { useCallback, useEffect, useRef } from 'react';
-import memojiAboutImage from '../../../images/memoji-about.png';
-import memojiHomeImage from '../../../images/memoji-home.png';
-import logoAsImage from '../../../images/as-logo.png';
-import memojiMacbookImage from '../../../images/memoji-macbook.png';
+import { CSSTransition } from 'react-transition-group';
 
 import './sticker.css';
 
 export interface StickerProps {
-  defaultStickerImage: 'memoji-about' | 'memoji-home' | 'logo-as' | 'memoji-macbook';
   id?: string;
   isAnimated?: boolean;
   className?: string;
-  emoji?: string;
+  imageMetadata?: ImageMetadata;
   link?: string;
   animation?: string;
 }
 
-export default function Sticker({ defaultStickerImage, isAnimated, className, emoji, link, animation }: StickerProps) {
-  const stickerImages = {
-    'memoji-about': memojiAboutImage,
-    'memoji-home': memojiHomeImage,
-    'logo-as': logoAsImage,
-    'memoji-macbook': memojiMacbookImage,
-  };
-
-  const stickerImage = stickerImages[defaultStickerImage];
-
-  const stickerRef = useRef<HTMLDivElement>(null);
+export default function Sticker({ imageMetadata, isAnimated, className, link, animation }: StickerProps) {
+  const stickerRef = useRef<HTMLImageElement>(null);
 
   const handleClick = useCallback(() => {
     if (link) {
@@ -45,14 +32,13 @@ export default function Sticker({ defaultStickerImage, isAnimated, className, em
   }, [isAnimated, animation]);
 
   return (
-    <div className={`sticker ${className || ''}`} ref={stickerRef} onClick={handleClick}>
-      {emoji ? (
+    <div className={`sticker ${className || ''}`} onClick={handleClick}>
+      {/* <img src={imageMetadata?.src} alt={''} ref={stickerRef} /> */}
+      <CSSTransition in={Boolean(imageMetadata)} timeout={300} classNames="emoji-transition" unmountOnExit>
         <span className="emoji">
-          <p>{emoji}</p>
+          <img src={imageMetadata?.src} alt={''} ref={stickerRef} />
         </span>
-      ) : (
-        stickerImage && <img src={stickerImage.src} alt={defaultStickerImage} />
-      )}
+      </CSSTransition>
     </div>
   );
 }

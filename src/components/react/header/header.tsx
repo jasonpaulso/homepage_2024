@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
-import Sticker, { type StickerProps } from '../sticker/sticker.tsx';
+import Sticker from '../sticker/sticker.tsx';
 import './header.css';
 
+export type HeadlineType = [ImageMetadata, string, string?];
 interface HeaderProps {
-  defaultStickerImage: StickerProps['defaultStickerImage'];
-  headlines: string[][];
+  defaultImageMetadata: ImageMetadata;
+  headlines: HeadlineType[];
 }
 
-const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
+const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const cursorRef = useRef<HTMLElement | null>(null);
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
-  const [stickerImage, setStickerImage] = useState(defaultStickerImage);
-  const [currentEmoji, setCurrentEmoji] = useState<string | undefined>(undefined);
-  const [currentEmojiAnimation, setCurrentEmojiAnimation] = useState<string | undefined>();
+
+  const [currentImageMetadata, setCurrentImageMetadata] = useState<ImageMetadata>(defaultImageMetadata);
+  const [currentImageAnimation, setCurrentImageAnimation] = useState<string | undefined>();
 
   const typeWriter = (text: string, onComplete: () => void) => {
     let currentText = '';
@@ -58,8 +59,8 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
 
   const animateHeadlines = async () => {
     for (const [index, headline] of headlines.entries()) {
-      setCurrentEmoji(headline[0]);
-      setCurrentEmojiAnimation(headline[2]);
+      setCurrentImageMetadata(headline[0]);
+      setCurrentImageAnimation(headline[2]);
       setStickerIsAnimating(true);
 
       await new Promise<void>((resolve) => {
@@ -76,8 +77,7 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
       }
     }
 
-    setCurrentEmoji(undefined);
-    setStickerImage(defaultStickerImage);
+    // setCurrentImageMetadata(defaultImageMetadata);
   };
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
 
   return (
     <header className="header">
-      <Sticker defaultStickerImage={stickerImage} id="sticker" isAnimated={stickerIsAnimating} emoji={currentEmoji} animation={currentEmojiAnimation} />
+      <Sticker imageMetadata={currentImageMetadata} id="sticker" isAnimated={stickerIsAnimating} animation={currentImageAnimation} />
       <h1 ref={headlineRef} className="header-title">
         <span id="cursor" ref={cursorRef} />
       </h1>

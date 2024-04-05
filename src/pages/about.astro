@@ -5,19 +5,28 @@ import BodyText from '../components/BodyText.astro';
 import Card from '../components/Card.astro';
 import Footer from '../components/Footer.astro';
 
-const headlines = [
-  ['🌿', 'Versatile software developer with a green thumb for frontend, cultivating clean code 💻 and thriving houseplants.', 'animate-skew'],
-  ['🍳', 'Software engineer specializing in frontend, former restaurant cook and current home chef, 🌐 serving up innovative web experiences.', 'animate-sizzle'],
-  ['🧘‍♂️', 'Frontend-focused developer, yoga enthusiast, and lifelong learner, embracing flexibility in 🚀 code and life.', 'animate-levitate'],
-  ['☢️', 'Software developer by day, Fallout aficionado by night, crafting immersive 👨‍💻 frontend experiences and exploring the Wasteland.', 'animate-pulse'],
-  ['🐶', 'Frontend specialist and proud dog dad, bringing 💡 creativity and enthusiasm to every project.', 'animate-pant'],
-  ['🚢', 'Former cruise line coordinator turned frontend developer, ⚓ navigating the high seas of web development.', 'animate-rotation'],
-  ['', 'Driven frontend-focused engineer, fusing technical prowess and creativity for 🌟 captivating web experiences.'],
+import eggImage from '../../public/images/stickers/egg.png';
+import boomImage from '../../public/images/stickers/boom.png';
+import herbImage from '../../public/images/stickers/herb.png';
+import puppyImage from '../../public/images/stickers/puppy.png';
+import shipImage from '../../public/images/stickers/ship.png';
+import yogaImage from '../../public/images/stickers/yoga.png';
+import jasonAboutImage from '../../public/images/stickers/Memoji_About.png';
+
+export type HeadlineType = [ImageMetadata, string, string?][];
+const headlines: HeadlineType = [
+  [herbImage, 'Versatile software developer with a green thumb for frontend, cultivating clean code 💻 and thriving houseplants.', 'animate-skew'],
+  [eggImage, 'Software engineer specializing in frontend, former restaurant cook and current home chef, 🌐 serving up innovative web experiences.', 'animate-sizzle'],
+  [yogaImage, 'Frontend-focused developer, yoga enthusiast, and lifelong learner, embracing flexibility in 🚀 code and life.', 'animate-levitate'],
+  [boomImage, 'Software developer by day, Fallout aficionado by night, crafting immersive 👨‍💻 frontend experiences and exploring the Wasteland.', 'animate-pulse'],
+  [puppyImage, 'Frontend specialist and proud dog dad, bringing 💡 creativity and enthusiasm to every project.', 'animate-pant'],
+  [shipImage, 'Former cruise line coordinator turned frontend developer, ⚓ navigating the high seas of web development.', 'animate-rotation'],
+  [jasonAboutImage, 'Driven frontend-focused engineer, fusing technical prowess and creativity for 🌟 captivating web experiences.'],
 ];
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
-  <Header headlines={headlines} defaultStickerImage="memoji-about" client:visible />
+  <Header headlines={headlines} defaultImageMetadata={jasonAboutImage} client:visible />
   <section>
     <div class="content-wrapper">
       <div><BodyText /></div>

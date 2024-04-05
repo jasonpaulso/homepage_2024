@@ -1,5 +1,6 @@
 ---
 import Sticker from './react/sticker/sticker.tsx';
+import antonLogoImage from '../../public/images/stickers/as-logo.png';
 
 const { showsAttribution } = Astro.props;
 ---
@@ -9,7 +10,7 @@ const { showsAttribution } = Astro.props;
     showsAttribution && (
       <div>
         <p>Designed with ❤️ by</p>
-        <Sticker defaultStickerImage="logo-as" className="logo what" link="https://anton.schulz.studio" client:load />
+        <Sticker imageMetadata={antonLogoImage} className="logo what" link="https://anton.schulz.studio" client:load />
       </div>
     )
   }
