@@ -34,8 +34,8 @@
 }
 
 .emoji {
-  height: 100%;
-  width: 100%;
+  /* height: 100%;
+  width: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,7 +48,9 @@
   height: var(--symbol);
   font-size: var(--symbol);
   margin-top: 8px;
+  animation-fill-mode: forwards;
 }
+
 .animate-rotation span {
   animation: partial-rotation 1s ease infinite;
 }
