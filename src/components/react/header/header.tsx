@@ -11,9 +11,10 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
   const cursorRef = useRef<HTMLElement | null>(null);
 
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
-  const [stickerImage, setStickerImage] = useState<StickerProps['defaultStickerImage'] | undefined>();
+  const [stickerImage, setStickerImage] = useState<StickerProps['defaultStickerImage']>();
 
   const [currentEmoji, setCurrentEmoji] = useState<string | undefined>(undefined);
+  const [currentEmojiAnimation, setCurrentEmojiAnimation] = useState<string | undefined>();
   const typeWriter = async (text: string): Promise<void> => {
     return new Promise((resolve) => {
       const interval = setInterval(() => {
@@ -60,7 +61,9 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
         if (headlines.length === 1) {
         }
         setCurrentEmoji(headline[0]);
+        setCurrentEmojiAnimation(headline[2]);
         setStickerIsAnimating(true);
+
         await typeWriter(headline[1]);
         setStickerIsAnimating(false);
 
@@ -92,14 +95,15 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
   }, [startAnimation]);
 
   useEffect(() => {
+    setStickerImage('memoji-home');
     setTimeout(() => {
       setStartAnimation(true);
-    }, 100);
+    }, 1000);
   }, []);
 
   return (
     <header className="header">
-      <Sticker defaultStickerImage={stickerImage} id="sticker" isAnimated={stickerIsAnimating} emoji={currentEmoji} />
+      <Sticker defaultStickerImage={stickerImage} id="sticker" isAnimated={stickerIsAnimating} emoji={currentEmoji} animation={currentEmojiAnimation} />
       <h1 ref={headlineRef} className="header-title">
         <span id="cursor" ref={cursorRef} />
       </h1>

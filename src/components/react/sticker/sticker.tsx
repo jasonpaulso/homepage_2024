@@ -5,15 +5,17 @@ import logoAsImage from '../../../images/as-logo.png';
 import memojiMacbookImage from '../../../images/memoji-macbook.png';
 import './sticker.css';
 export interface StickerProps {
-  defaultStickerImage: 'memoji-about' | 'memoji-home' | 'logo-as' | 'memoji-macbook';
+  defaultStickerImage?: 'memoji-about' | 'memoji-home' | 'logo-as' | 'memoji-macbook';
   id?: string;
   isAnimated?: boolean;
   className?: string;
   emoji?: string;
   link?: string;
+  animation?: string;
 }
 
-export default function Sticker({ defaultStickerImage, isAnimated, className, emoji, link }: StickerProps) {
+export default function Sticker({ defaultStickerImage, isAnimated, className, emoji, link, animation }: StickerProps) {
+  console.log('🚀 ~ Sticker ~ link:', link);
   let imageSrc;
   switch (defaultStickerImage) {
     case 'memoji-about':
@@ -29,16 +31,16 @@ export default function Sticker({ defaultStickerImage, isAnimated, className, em
       imageSrc = memojiMacbookImage;
       break;
     default:
-      imageSrc = memojiHomeImage; // Default case if defaultStickerImage doesn't match
+      break;
   }
 
   const stickerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    if (isAnimated) {
-      stickerRef.current!.classList.add('animate-rotation');
-    } else {
-      stickerRef.current!.classList.remove('animate-rotation');
+    if (isAnimated && animation) {
+      stickerRef.current!.classList.add(animation);
+    } else if (animation) {
+      stickerRef.current!.classList.remove(animation);
     }
   }, [isAnimated]);
 
@@ -57,7 +59,7 @@ export default function Sticker({ defaultStickerImage, isAnimated, className, em
           <p>{emoji}</p>
         </span>
       ) : (
-        <img {...imageSrc} alt={defaultStickerImage} />
+        defaultStickerImage && <img {...imageSrc} alt={defaultStickerImage} />
       )}
     </div>
   );
