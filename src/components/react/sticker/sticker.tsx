@@ -22,13 +22,14 @@ export default function Sticker({ imageMetadata, isAnimated, className, link, an
 
   useEffect(() => {
     if (animation && stickerRef.current) {
+      stickerRef.current.classList.remove(animation);
       if (isAnimated) {
         stickerRef.current.classList.add(animation);
       } else {
         stickerRef.current.classList.remove(animation);
       }
     }
-  }, [isAnimated, animation]);
+  }, [isAnimated, animation, imageMetadata]);
 
   return (
     <div className={`sticker ${className || ''}`} onClick={handleClick}>
