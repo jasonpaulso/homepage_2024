@@ -9,10 +9,12 @@ interface HeaderProps {
 const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const cursorRef = useRef<HTMLElement | null>(null);
-  const headlineElement = headlineRef.current;
+
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
-  const [stickerImage, setStickerImage] = useState<StickerProps['defaultStickerImage']>(defaultStickerImage);
+  const [stickerImage, setStickerImage] = useState<StickerProps['defaultStickerImage']>();
+
   const [currentEmoji, setCurrentEmoji] = useState<string | undefined>(undefined);
+  const [currentEmojiAnimation, setCurrentEmojiAnimation] = useState<string | undefined>();
   const typeWriter = async (text: string): Promise<void> => {
     return new Promise((resolve) => {
       const interval = setInterval(() => {
@@ -56,8 +58,10 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
   const animateHeadlines = async () => {
     try {
       for (const [index, headline] of headlines.entries()) {
-        setStickerImage('memoji-macbook');
+        if (headlines.length === 1) {
+        }
         setCurrentEmoji(headline[0]);
+        setCurrentEmojiAnimation(headline[2]);
         setStickerIsAnimating(true);
 
         await typeWriter(headline[1]);
@@ -73,6 +77,7 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
         }
       }
       setCurrentEmoji(undefined);
+
       setStickerImage(defaultStickerImage);
     } catch (error) {
       console.error('Error animating headlines:', error);
@@ -91,12 +96,12 @@ const Header = ({ defaultStickerImage, headlines }: HeaderProps) => {
     setStickerImage('memoji-home');
     setTimeout(() => {
       setStartAnimation(true);
-    }, 100);
+    }, 700);
   }, []);
 
   return (
     <header className="header">
-      <Sticker defaultStickerImage={stickerImage} id="sticker" isAnimated={stickerIsAnimating} emoji={currentEmoji} />
+      <Sticker defaultStickerImage={stickerImage} id="sticker" isAnimated={stickerIsAnimating} emoji={currentEmoji} animation={currentEmojiAnimation} />
       <h1 ref={headlineRef} className="header-title">
         <span id="cursor" ref={cursorRef} />
       </h1>
