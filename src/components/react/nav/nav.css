@@ -12,7 +12,7 @@
   z-index: 1000;
   pointer-events: none;
 }
-a {
+.nav-container a {
   display: flex;
   width: 100%;
   justify-content: center;
@@ -55,7 +55,7 @@ a {
     border-radius: 14px;
     top: 24px;
   }
-  a {
+  .nav-container a {
     padding: 13.5px 0;
     border-radius: 8px;
     font-size: 12px;
@@ -69,7 +69,7 @@ a {
     border-radius: 16px;
     top: 36px;
   }
-  a {
+  .nav-container a {
     padding: unset;
     border-radius: 8px;
     font-size: 14px;
@@ -83,7 +83,7 @@ a {
     border-radius: 20px;
     top: 48px;
   }
-  a {
+  .nav-container a {
     padding: 17.5px 0;
     border-radius: 10px;
     font-size: 16px;
