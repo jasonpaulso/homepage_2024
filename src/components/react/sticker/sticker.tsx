@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { CSSTransition } from 'react-transition-group';
 
 import './sticker.css';
 
@@ -33,12 +32,7 @@ export default function Sticker({ imageMetadata, isAnimated, className, link, an
 
   return (
     <div className={`sticker ${className || ''}`} onClick={handleClick}>
-      {/* <img src={imageMetadata?.src} alt={''} ref={stickerRef} /> */}
-      <CSSTransition in={Boolean(imageMetadata)} timeout={300} classNames="emoji-transition" unmountOnExit>
-        <span className="emoji">
-          <img src={imageMetadata?.src} alt={''} ref={stickerRef} />
-        </span>
-      </CSSTransition>
+      <img src={imageMetadata?.src} alt={''} ref={stickerRef} />
     </div>
   );
 }
