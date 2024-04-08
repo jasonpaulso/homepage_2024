@@ -4,7 +4,7 @@ import { defineDb, defineTable, column } from 'astro:db';
 
 const ExperienceCard = defineTable({
   columns: {
-    title: column.text(),
+    headline: column.text(),
     statement: column.text(),
     variant: column.number(),
   },

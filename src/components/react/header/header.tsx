@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+
 import Sticker from '../sticker/sticker.tsx';
+
 import './header.css';
 
 export type HeadlineType = [ImageMetadata, string, string?];
@@ -9,6 +11,7 @@ interface HeadlineInterface {
   image: unknown;
   animation: string;
 }
+
 interface HeaderProps {
   defaultImageMetadata: unknown;
   headlines: HeadlineInterface[];
@@ -18,7 +21,6 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const cursorRef = useRef<HTMLElement | null>(null);
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
-
   const [currentImageMetadata, setCurrentImageMetadata] = useState<ImageMetadata>(defaultImageMetadata as ImageMetadata);
   const [currentImageAnimation, setCurrentImageAnimation] = useState<string | undefined>();
 
@@ -82,6 +84,7 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
         }
         await selectAndDeleteHeadline();
       }
+      setCurrentImageMetadata(currentImageMetadata);
     }
   };
 

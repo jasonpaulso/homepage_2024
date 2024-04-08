@@ -20,18 +20,23 @@
   }
 }
 .header {
-  margin-top: 24px;
-  gap: 100px;
+  margin-top: 48px;
+  gap: 48px;
   display: flex;
   flex-direction: column;
   transition: height 0.5s cubic-bezier(0, 0.55, 0.45, 1);
-  min-height: 65vh;
+  height: 100%;
+  min-height: 30vh;
+}
+
+.header > div {
+  align-self: flex-end;
 }
 
 .header-title {
   color: #222;
   font-family: 'Helvetica Now Display';
-  font-size: 36px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 400;
   line-height: 110%;
@@ -40,12 +45,25 @@
 
 @media screen and (min-width: 640px) {
   .header {
-    margin-top: 48px;
-    gap: 110px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    margin-top: 64px;
+    gap: 48px;
+    min-height: 40vh;
   }
 
   .header-title {
-    font-size: 64px;
+    font-size: 48px;
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 140px;
+  }
+  .header > div {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: auto;
   }
 
   #cursor {
@@ -55,12 +73,17 @@
 
 @media screen and (min-width: 1024px) {
   .header {
-    margin-top: 64px;
-    gap: 132px;
+    margin-top: 0px;
+    gap: 64px;
+    min-height: 50vh;
   }
 
   .header-title {
-    font-size: 96px;
+    margin-top: 186px;
+    font-size: 64px;
+  }
+  .header > div {
+    margin-top: 96px;
   }
 
   #cursor {
@@ -69,13 +92,13 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .header {
-    margin-top: 96px;
-    gap: 144px;
-  }
-
   .header-title {
-    font-size: 128px;
+    font-size: 96px;
+    margin-top: 233px;
+    min-height: 50vh;
+  }
+  .header > div {
+    margin-top: 128px;
   }
 
   #cursor {

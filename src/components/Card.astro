@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 const variantColors = [
   { background: '#222', color: '#f8f7f1' },
   { background: '#552e21', color: '#f8f7f1' },
@@ -7,7 +9,16 @@ const variantColors = [
   { background: '#4A6D7C', color: '#f8f7f1' },
 ];
 
-const { headline, statement, variant = 0, url } = Astro.props;
+interface Props {
+  headline?: string;
+  statement?: string;
+  variant: number;
+  url?: string;
+  logo?: ImageMetadata;
+  subtitle?: string;
+}
+
+const { headline, statement, variant = 0, url, logo, subtitle } = Astro.props;
 
 const colors = variantColors[variant];
 ---
@@ -15,20 +26,14 @@ const colors = variantColors[variant];
 {
   url ? (
     <a href={url} style={{ background: colors.background, color: colors.color, textDecoration: 'none' }}>
-      <h3>{headline || 'LinkedIn'}</h3>
-      <p>
-        {statement ||
-          `As a frontend developer at Front, I collaborated with a talented team of designers and engineers to plan and build high-performing landing pages for diverse marketing campaigns. Leveraging my expertise in React, TypeScript, Next.js, GraphQL, and Craft CMS, I delivered engaging user experiences that drove successful results.`}
-      </p>
+      {logo ? <Image src={logo} alt="logo" /> : <h3>{headline || 'LinkedIn'}</h3>}
+
+      <p class="subtitle">{subtitle}</p>
     </a>
   ) : (
     <div style={{ background: colors.background, color: colors.color }}>
-      <h3>{headline || 'Front'}</h3>
-      <p>
-        {statement ||
-          `Most recently I planned and built landing pages for various marketing initiatives with a highly effective team of designers and engineers. I did this by drawing on my extensive understanding of front-end web development technologies including
-      React, Typescript, Next.js, GraphQL, and Craft CMS.`}
-      </p>
+      <h3>{headline}</h3>
+      <p>{statement}</p>
     </div>
   )
 }
@@ -48,7 +53,6 @@ const colors = variantColors[variant];
     transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
   }
   a:hover {
-    transform: scale(105%);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
 
@@ -67,6 +71,10 @@ const colors = variantColors[variant];
     font-weight: 400;
     line-height: 125%;
   }
+  img {
+    height: 36px;
+    width: auto;
+  }
 
   @media screen and (min-width: 640px) {
     div,
@@ -84,6 +92,9 @@ const colors = variantColors[variant];
     p {
       font-size: 10px;
     }
+    img {
+      height: 45px;
+    }
   }
   @media screen and (min-width: 1024px) {
     div,
@@ -99,6 +110,9 @@ const colors = variantColors[variant];
 
     p {
       font-size: 12px;
+    }
+    img {
+      height: 54px;
     }
   }
 
@@ -117,6 +131,9 @@ const colors = variantColors[variant];
 
     p {
       font-size: 14px;
+    }
+    img {
+      height: 62px;
     }
   }
 </style>

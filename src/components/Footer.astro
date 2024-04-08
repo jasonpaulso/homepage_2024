@@ -1,19 +1,19 @@
 ---
 import Sticker from './react/sticker/sticker.tsx';
 import antonLogoImage from '../../public/images/stickers/as-logo.png';
+import Cards from './Cards.astro';
 
-const { showsAttribution } = Astro.props;
+const footerCardProps = {
+  headline: 'AS',
+  url: 'https://anton.schulz.studio',
+  variant: 3,
+  logo: antonLogoImage,
+  subtitle: 'Designed with ❤️ by Anton Schulz.',
+};
 ---
 
 <footer>
-  {
-    showsAttribution && (
-      <div>
-        <p>Designed with ❤️ by</p>
-        <Sticker imageMetadata={antonLogoImage} className="logo what" link="https://anton.schulz.studio" client:load />
-      </div>
-    )
-  }
+  <Cards cards={[footerCardProps]} />
   <h2>&copy; 2024</h2>
 </footer>
 
@@ -22,7 +22,7 @@ const { showsAttribution } = Astro.props;
     color: #222;
     text-align: center;
     font-family: 'Helvetica Now Display';
-    margin-top: 80px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,25 +36,25 @@ const { showsAttribution } = Astro.props;
     align-self: center;
     row-gap: 8px;
     margin-bottom: 28px;
-    > * {
-      align-self: center;
-    }
   }
 
   h2 {
-    font-size: 32px;
+    font-size: 40px;
     font-style: normal;
     font-weight: 400;
     line-height: 100%; /* 32px */
+    align-self: flex-end;
+    margin-top: 48px;
   }
 
   @media screen and (min-width: 640px) {
     footer {
-      margin-top: 100px;
+      /* margin-top: 100px; */
     }
 
     h2 {
-      font-size: 64px;
+      margin-top: 64px;
+      font-size: 48px;
       line-height: 100%; /* 64px */
     }
     div {
@@ -64,11 +64,12 @@ const { showsAttribution } = Astro.props;
 
   @media screen and (min-width: 1024px) {
     footer {
-      margin-top: 120px;
+      /* margin-top: 120px; */
     }
 
     h2 {
-      font-size: 96px;
+      font-size: 64px;
+      margin-top: 96px;
       line-height: 100%; /* 96px */
     }
     div {
@@ -82,12 +83,13 @@ const { showsAttribution } = Astro.props;
 
   @media screen and (min-width: 1440px) {
     footer {
-      margin-top: 140px;
+      /* margin-top: 140px; */
     }
 
     h2 {
-      font-size: 128px;
+      font-size: 96px;
       line-height: 100%; /* 128px */
+      margin-top: 128px;
     }
     div {
       margin-bottom: 140px;

@@ -18,7 +18,7 @@ const headlines = await db.select().from(Headline).where(eq(Headline.page, 'abou
       <div><BodyText /></div>
       <div class="experience-card-column">
         <div class="experience-card-wrapper">
-          <Card headline={'LinkedIn'} statement={' '} variant="3" url="https://linkedin.com/in/jasonpaulso" />
+          <Card headline={'LinkedIn'} statement={' '} variant={3} url="https://linkedin.com/in/jasonpaulso" />
         </div>
       </div>
     </div>
@@ -27,6 +27,14 @@ const headlines = await db.select().from(Headline).where(eq(Headline.page, 'abou
 </Layout>
 
 <style>
+  :root {
+    footer .cards {
+      align-self: flex-start;
+    }
+    footer .cards > :nth-child(1):only-child {
+      transform: rotate(-6deg);
+    }
+  }
   section {
     margin-top: 80px;
   }
@@ -42,6 +50,12 @@ const headlines = await db.select().from(Headline).where(eq(Headline.page, 'abou
     margin-right: 0;
     margin-left: auto;
   }
+  .experience-card-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
 
   @media (min-width: 640px) {
     section {
@@ -54,15 +68,11 @@ const headlines = await db.select().from(Headline).where(eq(Headline.page, 'abou
       margin-top: 120px;
     }
 
+    .experience-card-wrapper {
+      margin-bottom: -200px;
+    }
     .content-wrapper {
       grid-template-columns: 1fr 1fr;
-    }
-
-    .experience-card-column {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-end;
     }
   }
 
