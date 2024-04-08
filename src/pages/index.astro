@@ -1,14 +1,16 @@
 ---
+import { db, eq, Headline } from 'astro:db';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/react/header/header';
 import Footer from '../components/Footer.astro';
 import Cards from '../components/Cards.astro';
 import jasonHomeImage from '../../public/images/stickers/Memoji_Home.png';
-import helloImage from '../../public/images/stickers/hello.png';
+
+const headlines = await db.select().from(Headline).where(eq(Headline.page, 'home'));
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
-  <Header defaultImageMetadata={jasonHomeImage} headlines={[[helloImage, 'Hello! I’m Jason Schulz, a frontend developer and software engineer based in Brooklyn, New York.', 'animate-rotation']]} client:visible />
+  <Header defaultImageMetadata={jasonHomeImage} headlines={headlines} client:visible />
   <Cards />
   <Footer showsAttribution />
 </Layout>

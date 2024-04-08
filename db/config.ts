@@ -1,0 +1,28 @@
+import { defineDb, defineTable, column } from 'astro:db';
+
+// https://astro.build/db/config
+
+const ExperienceCard = defineTable({
+  columns: {
+    title: column.text(),
+    statement: column.text(),
+    variant: column.number(),
+  },
+});
+
+const Headline = defineTable({
+  columns: {
+    id: column.number({ primaryKey: true }),
+    text: column.text(),
+    image: column.json(),
+    animation: column.text(),
+    page: column.text(),
+  },
+});
+
+export default defineDb({
+  tables: {
+    ExperienceCard,
+    Headline,
+  },
+});

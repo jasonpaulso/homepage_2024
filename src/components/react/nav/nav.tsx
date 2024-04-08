@@ -68,7 +68,7 @@ const Nav: React.FC<NavProps> = ({ links, activeLinkIndex }) => {
     <nav className={'nav-container'} ref={navRef} onMouseLeave={setInitialSliderPosition}>
       <>
         {links.map((link, index) => (
-          <a href={link.href} key={link.title} data-active={index === activeLinkIndex} onMouseEnter={handleMouseEnter} onMouseLeave={setInitialSliderPosition}>
+          <a href={link.href} key={link.title} data-active={index === activeLinkIndex} onMouseEnter={handleMouseEnter} onMouseLeave={setInitialSliderPosition} data-astro-prefetch>
             {link.title}
           </a>
         ))}
