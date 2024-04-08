@@ -3,9 +3,15 @@ import Sticker from '../sticker/sticker.tsx';
 import './header.css';
 
 export type HeadlineType = [ImageMetadata, string, string?];
+
+interface HeadlineInterface {
+  text: string;
+  image: unknown;
+  animation: string;
+}
 interface HeaderProps {
-  defaultImageMetadata: ImageMetadata;
-  headlines: HeadlineType[];
+  defaultImageMetadata: unknown;
+  headlines: HeadlineInterface[];
 }
 
 const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
@@ -13,7 +19,7 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
   const cursorRef = useRef<HTMLElement | null>(null);
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
 
-  const [currentImageMetadata, setCurrentImageMetadata] = useState<ImageMetadata>(defaultImageMetadata);
+  const [currentImageMetadata, setCurrentImageMetadata] = useState<ImageMetadata>(defaultImageMetadata as ImageMetadata);
   const [currentImageAnimation, setCurrentImageAnimation] = useState<string | undefined>();
 
   const typeWriter = (text: string, onComplete: () => void) => {
@@ -59,12 +65,13 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
 
   const animateHeadlines = async () => {
     for (const [index, headline] of headlines.entries()) {
-      setCurrentImageMetadata(headline[0]);
-      setCurrentImageAnimation(headline[2]);
+      const { text, animation, image } = headline;
+      setCurrentImageMetadata(image as ImageMetadata);
+      setCurrentImageAnimation(animation);
       setStickerIsAnimating(true);
 
       await new Promise<void>((resolve) => {
-        typeWriter(headline[1], resolve);
+        typeWriter(text, resolve);
       });
 
       setStickerIsAnimating(false);
@@ -76,8 +83,6 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
         await selectAndDeleteHeadline();
       }
     }
-
-    // setCurrentImageMetadata(defaultImageMetadata);
   };
 
   useEffect(() => {
