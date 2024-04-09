@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import './card.css';
+
+export interface Props {
+  headline?: string;
+  statement?: string;
+  url?: string;
+  logo?: ImageMetadata;
+  subtitle?: string;
+  class: string;
+}
+
+const { headline, statement, url, logo, subtitle, class: className } = Astro.props;
+---
+
+{
+  url ? (
+    <a href={url} class:list={[className, 'card']}>
+      {logo ? <Image src={logo} alt="logo" /> : <h3>{headline || 'LinkedIn'}</h3>}
+
+      <p class="subtitle">{subtitle}</p>
+    </a>
+  ) : (
+    <div class:list={[className, 'card']}>
+      <h3>{headline}</h3>
+      <p>{statement}</p>
+    </div>
+  )
+}

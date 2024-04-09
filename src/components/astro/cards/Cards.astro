@@ -1,0 +1,19 @@
+---
+import Card from '../card/Card.astro';
+import type { Props as CardProps } from '../card/Card.astro';
+import './cards.css';
+
+const { cards } = Astro.props;
+
+interface Props {
+  cards: CardProps[];
+}
+---
+
+<section class="cards">
+  {
+    cards.map((card) => {
+      return <Card {...card} />;
+    })
+  }
+</section>

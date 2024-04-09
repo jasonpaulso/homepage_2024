@@ -1,0 +1,122 @@
+.card-onyx {
+  background-color: var(--color-onyx);
+  color: var(--color-ivory-white);
+}
+.card-dark-walnut {
+  background-color: var(--color-dark-walnut);
+  color: var(--color-ivory-white);
+}
+.card-sage-green {
+  background-color: var(--color-sage-green);
+  color: var(--color-primary);
+}
+.card-blue-gray {
+  background-color: var(--color-blue-gray);
+  color: var(--color-ivory-white);
+}
+
+.card-ash-gray {
+  background-color: var(--color-ash-gray);
+  color: var(--color-primary);
+}
+div.card,
+a.card {
+  padding: 16px;
+  border-radius: 10px;
+  min-height: 180px;
+  height: 100%;
+  width: 240px;
+  max-width: 100%;
+  row-gap: 40px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  display: flex;
+  transition: all var(--animation-duration) var(--animation-timing-function);
+  overflow: visible;
+}
+a.card:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-medium);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+  max-width: 70%;
+}
+
+.card p {
+  font-family: var(--font-family-secondary);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 125%;
+}
+.card img {
+  height: 36px;
+  width: auto;
+}
+
+@media screen and (min-width: 640px) {
+  div.card,
+  a.card {
+    padding: 20px;
+    border-radius: 14px;
+    min-height: 220px;
+    width: 300px;
+  }
+
+  .card h3 {
+    font-size: 32px;
+  }
+
+  .card p {
+    font-size: 10px;
+  }
+  .cardimg {
+    height: 45px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  div.card,
+  a.card {
+    padding: var(--padding-medium);
+    border-radius: 16px;
+    min-height: 260px;
+    width: 360px;
+  }
+  .card h3 {
+    font-size: 36px;
+  }
+
+  .card p {
+    font-size: var(--font-size-small);
+  }
+  .card img {
+    height: 54px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  div.card,
+  a.card {
+    padding: 32px;
+    border-radius: 16px;
+    min-height: 300px;
+    width: 420px;
+  }
+
+  .card h3 {
+    font-size: 40px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
+  .card img {
+    height: 62px;
+  }
+}

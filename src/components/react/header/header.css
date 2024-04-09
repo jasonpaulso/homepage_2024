@@ -58,7 +58,7 @@
   }
 
   .header-title {
-    font-size: var(--font-size-large);
+    font-size: 48px;
     grid-column: 1;
     grid-row: 1;
     margin-top: 140px;
