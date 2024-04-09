@@ -7,10 +7,10 @@
   display: flex;
   padding: 15px;
   border-radius: 100px;
-  background: var(--color-white);
+  background: var(--color-secondary);
   display: flex;
   position: relative;
-  transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
+  transition: all var(--animation-duration) var(--animation-timing-function);
   background-color: var(--sunflower-yellow);
   min-width: 0;
 }

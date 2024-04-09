@@ -19,9 +19,9 @@ const footerCardData = {
 
 <style>
   footer {
-    color: var(--color-black);
+    color: var(--color-primary);
     text-align: center;
-    font-family: 'Helvetica Now Display';
+    font-family: var(--font-family-primary);
 
     display: flex;
     flex-direction: column;
@@ -44,7 +44,7 @@ const footerCardData = {
     font-weight: 400;
     line-height: 100%; /* 32px */
     align-self: flex-end;
-    margin-top: 48px;
+    margin-top: var(--margin-large);
   }
 
   @media screen and (min-width: 640px) {
@@ -54,7 +54,7 @@ const footerCardData = {
 
     h2 {
       margin-top: 64px;
-      font-size: 48px;
+      font-size: var(--font-size-large);
       line-height: 100%; /* 64px */
     }
     div {

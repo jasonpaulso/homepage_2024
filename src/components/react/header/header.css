@@ -25,11 +25,11 @@
   }
 }
 .header {
-  margin-top: 48px;
-  gap: 48px;
+  margin-top: var(--margin-large);
+  gap: var(--margin-large);
   display: flex;
   flex-direction: column;
-  transition: height 0.5s cubic-bezier(0, 0.55, 0.45, 1);
+  transition: height var(--animation-duration) var(--animation-timing-function);
   height: 100%;
 }
 
@@ -38,8 +38,8 @@
 }
 
 .header-title {
-  color: var(--color-black);
-  font-family: 'Helvetica Now Display';
+  color: var(--color-primary);
+  font-family: var(--font-family-primary);
   font-size: 40px;
   font-style: normal;
   font-weight: 400;
@@ -53,12 +53,12 @@
     grid-template-columns: auto 1fr;
     grid-template-rows: 1fr;
     margin-top: 64px;
-    gap: 48px;
+    gap: var(--margin-large);
     min-height: 60vh;
   }
 
   .header-title {
-    font-size: 48px;
+    font-size: var(--font-size-large);
     grid-column: 1;
     grid-row: 1;
     margin-top: 140px;
@@ -90,7 +90,6 @@
   .header-title {
     font-size: 96px;
     margin-top: 233px;
-    /* min-height: 50vh; */
   }
   .header > div {
     margin-top: 128px;

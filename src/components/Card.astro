@@ -39,7 +39,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
   }
   .card-sage-green {
     background-color: var(--sage-green);
-    color: var(--color-black);
+    color: var(--color-primary);
   }
   .card-blue-gray {
     background-color: var(--blue-gray);
@@ -48,7 +48,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
 
   .card-ash-gray {
     background-color: var(--ash-gray);
-    color: var(--color-black);
+    color: var(--color-primary);
   }
   div,
   a {
@@ -61,7 +61,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
     justify-content: space-between;
     align-items: flex-start;
     display: flex;
-    transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
+    transition: all var(--animation-duration) var(--animation-timing-function);
     overflow: visible;
   }
   a:hover {
@@ -69,8 +69,8 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
   }
 
   h3 {
-    font-family: 'Helvetica Now Display';
-    font-size: 24px;
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-medium);
     font-style: normal;
     font-weight: 700;
     line-height: 100%;
@@ -78,7 +78,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
   }
 
   p {
-    font-family: 'JetBrains Mono';
+    font-family: var(--font-family-secondary);
     font-size: 8px;
     font-style: normal;
     font-weight: 400;
@@ -112,7 +112,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
   @media screen and (min-width: 1024px) {
     div,
     a {
-      padding: 24px;
+      padding: var(--padding-medium);
       border-radius: 16px;
       height: 260px;
       width: 360px;
@@ -122,7 +122,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
     }
 
     p {
-      font-size: 12px;
+      font-size: var(--font-size-small);
     }
     img {
       height: 54px;
