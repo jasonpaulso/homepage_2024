@@ -1,12 +1,12 @@
 ---
-import { db, Headline, eq } from 'astro:db';
-import Layout from '../../layouts/Layout.astro';
-import Header, { type HeadlineData } from '@components/react/header/header';
+import jasonAboutImage from '@assets/images/stickers/Memoji_About.png';
 import BodyText from '@components/astro/body-text/BodyText.astro';
 import Card from '@components/astro/card/Card.astro';
 import Footer from '@components/astro/footer/Footer.astro';
+import Header, { type HeadlineData } from '@components/react/header/header';
+import Layout from '@src/layouts/Layout.astro';
+import { Headline, db, eq } from 'astro:db';
 import './about.css';
-import jasonAboutImage from '@assets/images/stickers/Memoji_About.png';
 
 const headlines = (await db.select().from(Headline).where(eq(Headline.page, 'about'))) as HeadlineData[];
 ---
@@ -25,3 +25,4 @@ const headlines = (await db.select().from(Headline).where(eq(Headline.page, 'abo
   </section>
   <Footer />
 </Layout>
+@components/react/header @components/react/header/header

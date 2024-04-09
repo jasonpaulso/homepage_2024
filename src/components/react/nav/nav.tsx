@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FC } from 'react';
 
-import './nav.css';
 import emailIcon from '@assets/images/other/love-letter.png';
+import './nav.css';
 
 export interface NavData {
   links: {

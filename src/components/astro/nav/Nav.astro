@@ -1,6 +1,6 @@
 ---
 import EmailNotification from '@components/astro/notification/EmailNotification.astro';
-import Navigation, { type NavData } from '@components/react/nav/nav.tsx';
+import Navigation, { type NavData } from '@components/react/nav/nav';
 
 const pathname = Astro.url.pathname;
 const navData: NavData = {
@@ -31,3 +31,4 @@ const activeLinkIndex = findActiveLinkIndex(navData.links);
   <Navigation links={navData.links} activeLinkIndex={activeLinkIndex} client:load />
   <EmailNotification />
 </>
+@components/react/nav
