@@ -2,10 +2,15 @@
   display: inline-block;
   margin-left: 0.1em;
   width: 0.08em;
-  height: 100%;
   vertical-align: top;
   background-color: rgba(0, 0, 0, 0.714);
   animation: blink 1s infinite;
+}
+
+.hidden-headline {
+  position: absolute;
+  z-index: -100;
+  opacity: 0;
 }
 
 @keyframes blink {
@@ -26,7 +31,6 @@
   flex-direction: column;
   transition: height 0.5s cubic-bezier(0, 0.55, 0.45, 1);
   height: 100%;
-  min-height: 50vh;
 }
 
 .header > div {
@@ -34,7 +38,7 @@
 }
 
 .header-title {
-  color: #222;
+  color: var(--color-black);
   font-family: 'Helvetica Now Display';
   font-size: 40px;
   font-style: normal;
@@ -50,7 +54,7 @@
     grid-template-rows: 1fr;
     margin-top: 64px;
     gap: 48px;
-    /* min-height: 40vh; */
+    min-height: 60vh;
   }
 
   .header-title {
@@ -65,17 +69,12 @@
     justify-self: end;
     align-self: auto;
   }
-
-  #cursor {
-    height: 60px;
-  }
 }
 
 @media screen and (min-width: 1024px) {
   .header {
     margin-top: 0px;
     gap: 64px;
-    /* min-height: 50vh; */
   }
 
   .header-title {
@@ -84,10 +83,6 @@
   }
   .header > div {
     margin-top: 96px;
-  }
-
-  #cursor {
-    height: 90px;
   }
 }
 
@@ -99,9 +94,5 @@
   }
   .header > div {
     margin-top: 128px;
-  }
-
-  #cursor {
-    height: 118px;
   }
 }

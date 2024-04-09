@@ -7,7 +7,7 @@
   padding: 4px;
   justify-content: space-around;
   flex-shrink: 0;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 10px;
   z-index: 1000;
   pointer-events: none;
@@ -18,7 +18,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
-  color: #222;
+  color: var(--color-black);
   border-radius: 6px;
   text-decoration: none;
   text-align: center;
@@ -33,10 +33,35 @@
   z-index: 1;
   pointer-events: auto;
 }
+.nav-container a img {
+  opacity: 0;
+  width: 1.5em;
+
+  margin-left: 5px;
+  transition: opacity 0.5s cubic-bezier(0, 0.55, 0.45, 1);
+  animation: pulse 2s ease infinite;
+  position: absolute;
+  right: 5%;
+}
+.nav-container a:hover img {
+  visibility: visible;
+  opacity: 1;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(110%);
+  }
+  50% {
+    transform: scale(90%);
+  }
+}
+
 .nav-container .slider {
   position: absolute;
   left: 0;
-  background-color: #ffd600;
+  background-color: var(--highlight-primary);
   z-index: 0;
   display: none;
   transition: transform 0.5s cubic-bezier(0, 0.55, 0.45, 1);
@@ -44,7 +69,8 @@
   height: 31px;
   border-radius: 6px;
   will-change: transform;
-  filter: drop-shadow(0px 0px 2px #222);
+  background: linear-gradient(to bottom, #ffdb4d, #ffcc00);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container a:hover + .slider {

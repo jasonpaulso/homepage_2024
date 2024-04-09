@@ -7,21 +7,20 @@
   display: flex;
   padding: 15px;
   border-radius: 100px;
-  background: #fff;
+  background: var(--color-white);
   display: flex;
   position: relative;
   transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
-  background-color: #ffd600;
+  background-color: var(--sunflower-yellow);
   min-width: 0;
 }
 
 .sticker img {
   object-fit: contain;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   max-width: 100%;
   max-height: 100%;
-  filter: drop-shadow(0px 0px 2px #222);
 }
 
 .animate-rotation {
@@ -110,8 +109,8 @@
   }
 
   .sticker img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -123,8 +122,8 @@
   }
 
   .sticker img {
-    width: 115px;
-    height: 115px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -136,7 +135,7 @@
   }
 
   .sticker img {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
   }
 }

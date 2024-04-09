@@ -7,6 +7,7 @@ const ExperienceCard = defineTable({
     headline: column.text(),
     statement: column.text(),
     variant: column.number(),
+    class: column.text(),
   },
 });
 

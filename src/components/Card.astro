@@ -1,37 +1,27 @@
 ---
 import { Image } from 'astro:assets';
 
-const variantColors = [
-  { background: '#222', color: '#f8f7f1' },
-  { background: '#552e21', color: '#f8f7f1' },
-  { background: '#dadada', color: '#222' },
-  { background: '#D4D7B9', color: '#222' },
-  { background: '#4A6D7C', color: '#f8f7f1' },
-];
-
-interface Props {
+export interface Props {
   headline?: string;
   statement?: string;
-  variant: number;
   url?: string;
   logo?: ImageMetadata;
   subtitle?: string;
+  class: string;
 }
 
-const { headline, statement, variant = 0, url, logo, subtitle } = Astro.props;
-
-const colors = variantColors[variant];
+const { headline, statement, url, logo, subtitle, class: className } = Astro.props;
 ---
 
 {
   url ? (
-    <a href={url} style={{ background: colors.background, color: colors.color, textDecoration: 'none' }}>
+    <a href={url} class={className}>
       {logo ? <Image src={logo} alt="logo" /> : <h3>{headline || 'LinkedIn'}</h3>}
 
       <p class="subtitle">{subtitle}</p>
     </a>
   ) : (
-    <div style={{ background: colors.background, color: colors.color }}>
+    <div class={className}>
       <h3>{headline}</h3>
       <p>{statement}</p>
     </div>
@@ -39,6 +29,27 @@ const colors = variantColors[variant];
 }
 
 <style>
+  .card-onyx {
+    background-color: var(--onyx);
+    color: var(--ivory-white);
+  }
+  .card-dark-walnut {
+    background-color: var(--dark-walnut);
+    color: var(--ivory-white);
+  }
+  .card-sage-green {
+    background-color: var(--sage-green);
+    color: var(--color-black);
+  }
+  .card-blue-gray {
+    background-color: var(--blue-gray);
+    color: var(--ivory-white);
+  }
+
+  .card-ash-gray {
+    background-color: var(--ash-gray);
+    color: var(--color-black);
+  }
   div,
   a {
     padding: 16px;
@@ -51,7 +62,6 @@ const colors = variantColors[variant];
     align-items: flex-start;
     display: flex;
     transition: all 0.5s cubic-bezier(0, 0.55, 0.45, 1);
-    filter: drop-shadow(0px 0px 2px #222);
     overflow: visible;
   }
   a:hover {
@@ -64,6 +74,7 @@ const colors = variantColors[variant];
     font-style: normal;
     font-weight: 700;
     line-height: 100%;
+    max-width: 70%;
   }
 
   p {

@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './nav.css';
-interface NavProps {
+import emailIcon from '../../../images/love-letter.png';
+export interface NavData {
   links: {
     title: string;
     href: string;
   }[];
-  activeLinkIndex: any;
+  activeLinkIndex?: any;
 }
 
-const Nav: React.FC<NavProps> = ({ links, activeLinkIndex }) => {
+const Nav: React.FC<NavData> = ({ links, activeLinkIndex }) => {
   const navRef = useRef<HTMLElement | null>(null);
   const sliderRef = useRef<HTMLElement | null>(null);
   const [activeLink, setActiveLink] = useState<HTMLAnchorElement | undefined>();
@@ -70,6 +71,7 @@ const Nav: React.FC<NavProps> = ({ links, activeLinkIndex }) => {
         {links.map((link, index) => (
           <a href={link.href} key={link.title} data-active={index === activeLinkIndex} onMouseEnter={handleMouseEnter} onMouseLeave={setInitialSliderPosition} data-astro-prefetch>
             {link.title}
+            {link.href.includes('mailto') && <img src={emailIcon.src} />}
           </a>
         ))}
         <span className="slider" ref={sliderRef}></span>

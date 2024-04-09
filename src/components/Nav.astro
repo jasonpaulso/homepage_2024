@@ -1,8 +1,9 @@
 ---
 import EmailNotification from './EmailNotification.astro';
 import Navigation from './react/nav/nav.tsx';
+import type { NavData } from './react/nav/nav';
 const pathname = Astro.url.pathname;
-const navProps: NavProps = {
+const navData: NavData = {
   links: [
     {
       title: 'Home',
@@ -18,20 +19,15 @@ const navProps: NavProps = {
     },
   ],
 };
-interface NavProps {
-  links: {
-    title: string;
-    href: string;
-  }[];
-}
+
 const findActiveLinkIndex = (links: { href: string }[]) => {
   const activeLinkIndex = links.findIndex((link) => link.href === pathname);
   return activeLinkIndex;
 };
-const activeLinkIndex = findActiveLinkIndex(navProps.links);
+const activeLinkIndex = findActiveLinkIndex(navData.links);
 ---
 
 <>
-  <Navigation links={navProps.links} activeLinkIndex={activeLinkIndex} client:load />
+  <Navigation links={navData.links} activeLinkIndex={activeLinkIndex} client:load />
   <EmailNotification />
 </>

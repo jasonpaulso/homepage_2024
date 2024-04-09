@@ -1,12 +1,17 @@
 ---
 import Card from './Card.astro';
+import type { Props as CardProps } from './Card.astro';
 
 const { cards } = Astro.props;
+
+interface Props {
+  cards: CardProps[];
+}
 ---
 
 <section class="cards">
   {
-    cards.map((card: any) => {
+    cards.map((card) => {
       return <Card {...card} />;
     })
   }
@@ -20,6 +25,8 @@ const { cards } = Astro.props;
     align-items: center;
     margin-top: 48px;
     overflow: visible;
+
+    align-self: center;
 
     > div:nth-child(1) {
       transform: rotate(-4deg);
@@ -56,6 +63,8 @@ const { cards } = Astro.props;
   @media (min-width: 640px) {
     .cards {
       margin-top: 64px;
+      width: 100%;
+      max-width: 90%;
       > div:nth-child(1) {
         margin-right: auto;
         margin-left: 0;
@@ -65,7 +74,7 @@ const { cards } = Astro.props;
         margin-top: 100px;
       }
       > div:nth-child(3) {
-        margin-top: -50px;
+        margin-top: -5%;
         margin-right: auto;
         margin-left: 80px;
       }
@@ -78,6 +87,10 @@ const { cards } = Astro.props;
   @media (min-width: 1024px) {
     .cards {
       margin-top: 96px;
+      /* max-width: 100vw; */
+      width: 100%;
+      max-width: 100%;
+      align-items: flex-start;
       > div:nth-child(1) {
         margin-right: auto;
         margin-left: 0;
@@ -87,7 +100,7 @@ const { cards } = Astro.props;
         margin-top: -120px;
       }
       > div:nth-child(3) {
-        margin-top: -100px;
+        margin-top: -10%;
         margin-right: auto;
         margin-left: 272px;
       }

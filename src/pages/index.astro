@@ -1,13 +1,14 @@
 ---
 import { db, eq, Headline, ExperienceCard } from 'astro:db';
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/react/header/header';
+import Header, { type HeadlineData } from '../components/react/header/header';
 import Footer from '../components/Footer.astro';
 import Cards from '../components/Cards.astro';
+import type { Props as CardProps } from '../components/Card.astro';
 import jasonHomeImage from '../../public/images/stickers/Memoji_Home.png';
 
-const headlines = await db.select().from(Headline).where(eq(Headline.page, 'home'));
-const cards = await db.select().from(ExperienceCard);
+const headlines = (await db.select().from(Headline).where(eq(Headline.page, 'home'))) as HeadlineData[];
+const cards = (await db.select().from(ExperienceCard)) as CardProps[];
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
@@ -15,3 +16,11 @@ const cards = await db.select().from(ExperienceCard);
   <Cards cards={cards} />
   <Footer showsAttribution />
 </Layout>
+
+<style>
+  :root {
+    footer .cards {
+      align-items: center;
+    }
+  }
+</style>

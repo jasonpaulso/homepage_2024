@@ -1,25 +1,25 @@
 ---
-import Sticker from './react/sticker/sticker.tsx';
 import antonLogoImage from '../../public/images/stickers/as-logo.png';
 import Cards from './Cards.astro';
 
-const footerCardProps = {
+const footerCardData = {
   headline: 'AS',
   url: 'https://anton.schulz.studio',
   variant: 3,
   logo: antonLogoImage,
   subtitle: 'Designed with ❤️ by Anton Schulz.',
+  class: 'card-sage-green',
 };
 ---
 
 <footer>
-  <Cards cards={[footerCardProps]} />
+  <Cards cards={[footerCardData]} />
   <h2>&copy; 2024</h2>
 </footer>
 
 <style>
   footer {
-    color: #222;
+    color: var(--color-black);
     text-align: center;
     font-family: 'Helvetica Now Display';
 

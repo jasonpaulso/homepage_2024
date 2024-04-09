@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, type FC } from 'react';
 
 import './sticker.css';
 
-export interface StickerProps {
+export interface StickerData {
   id?: string;
   isAnimated?: boolean;
   className?: string;
@@ -11,7 +11,7 @@ export interface StickerProps {
   animation?: string;
 }
 
-export default function Sticker({ imageMetadata, isAnimated, className, link, animation }: StickerProps) {
+const Sticker: FC<StickerData> = ({ imageMetadata, isAnimated, className, link, animation }) => {
   const stickerRef = useRef<HTMLImageElement>(null);
 
   const handleClick = useCallback(() => {
@@ -36,4 +36,6 @@ export default function Sticker({ imageMetadata, isAnimated, className, link, an
       <img src={imageMetadata?.src} alt={''} ref={stickerRef} />
     </div>
   );
-}
+};
+
+export default Sticker;

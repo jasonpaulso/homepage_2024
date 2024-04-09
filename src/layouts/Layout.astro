@@ -52,10 +52,53 @@ const largeMediaVars = {
       <Nav />
       <slot />
     </main>
-    <style is:global define:vars={{ ...baseVars, ...smallMediaVars, ...mediumMediaVars, ...largeMediaVars }}>
+    <style is:global>
       @tailwind base;
       @tailwind components;
       @tailwind utilities;
+
+      :root {
+        --padding: 12px 12px 80px 12px;
+        --color-white: #ffffff;
+        --small-padding: 24px 24px 100px 24px;
+        --small-max-width: 640px;
+        --medium-padding: 48px 48px 120px 48px;
+        --medium-max-width: 1024px;
+        --large-padding: 64px 64px 140px 64px;
+        --large-max-width: 1440px;
+        --onyx: #212121;
+        --sunflower-yellow: #ffd600;
+        --eggshell: #f7f7f2;
+        --pure-white: #ffffff;
+        --sage-green: #d4d6ba;
+        --light-gray: #d9d9d9;
+        --dark-walnut: #542e21;
+        --ivory-white: #f8f7f1;
+        --blue-gray: #4a6d7c;
+        --ash-gray: #dadada;
+        --color-black: #222222;
+        --color-offwhite: #eeeeee;
+        --font-family-primary: 'Helvetica Now Display', sans-serif;
+        --font-family-secondary: 'JetBrains Mono', monospace;
+
+        --font-size-small: 12px;
+        --font-size-medium: 16px;
+        --font-size-large: 20px;
+
+        --padding-small: 12px;
+        --padding-medium: 24px;
+        --padding-large: 48px;
+
+        --margin-small: 12px;
+        --margin-medium: 24px;
+        --margin-large: 48px;
+
+        --color-primary: #222222;
+        --color-secondary: #ffffff;
+
+        --animation-duration: 0.5s;
+        --animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+      }
 
       @layer base {
         @font-face {
@@ -77,9 +120,6 @@ const largeMediaVars = {
           font-weight: normal;
           font-style: normal;
         }
-      }
-
-      :root {
       }
 
       html {
@@ -104,7 +144,7 @@ const largeMediaVars = {
         margin: auto;
         padding: var(--padding);
         max-width: var(--maxWidth);
-        color: var(--color);
+        color: var(--color-white);
         font-size: 20px;
         line-height: 1.6;
         display: flex;
@@ -116,22 +156,22 @@ const largeMediaVars = {
 
       @media (min-width: 640px) {
         main {
-          max-width: var(--smallMaxWidth);
-          padding: var(--smallPadding);
+          max-width: var(--small-max-width);
+          padding: var(--small-padding);
         }
       }
 
       @media (min-width: 1024px) {
         main {
-          max-width: var(--mediumMaxWidth);
-          padding: var(--mediumPadding);
+          max-width: var(--medium-max-width);
+          padding: var(--medium-padding);
         }
       }
 
       @media (min-width: 1440px) {
         main {
-          max-width: var(--largeMaxWidth);
-          padding: var(--largePadding);
+          max-width: var(--large-max-width);
+          padding: var(--large-padding);
         }
       }
     </style>

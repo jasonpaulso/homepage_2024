@@ -23,6 +23,7 @@ interface ExperienceCardProps {
   variant: number;
   headline: string;
   statement: string;
+  class: string;
 }
 
 const cards: ExperienceCardProps[] = [
@@ -31,23 +32,27 @@ const cards: ExperienceCardProps[] = [
     statement:
       'As a frontend developer at Front, I collaborated with a talented team of designers and engineers to plan and build high-performing landing pages for diverse marketing campaigns. Leveraging my expertise in React, TypeScript, Next.js, GraphQL, and Craft CMS, I delivered engaging user experiences that drove successful results.',
     variant: 0,
+    class: 'card-onyx',
   },
   {
     headline: 'Microsoft',
     statement:
       'As a Software Engineer II at Microsoft, I worked on delivering new features for the Microsoft 365 suite. I developed the frontend for Money in Excel, a React-based plugin with a substantial user base, and overhauled the map UI for the Microsoft 365 Accounts homepage. Utilizing React, Angular, TypeScript, and Azure DevOps, I implemented impactful solutions that enhanced user experiences.',
     variant: 1,
+    class: 'card-dark-walnut',
   },
   {
     headline: 'MileIQ by Microsoft',
     statement: `As the sole developer on the Marketing team at MileIQ post-acquisition, I rebuilt the website from legacy stack to Microsoft's infrastructure. Using React, Angular, JavaScript, and TypeScript, I optimized development processes and delivered a seamless user experience across web and mobile platforms, establishing MileIQ as a top-level page on Microsoft.com.`,
     variant: 2,
+    class: 'card-ash-gray',
   },
   {
     headline: 'Previously...',
     statement:
       'As a freelance web developer, I collaborated with design studios, nonprofits, and brands to create websites and email campaigns. I also led digital transformation efforts at a Bay Area design showroom, implementing technologies to support online product catalogs and sales tracking. These experiences honed my adaptability, problem-solving, and communication skills.',
     variant: 4,
+    class: 'card-blue-gray',
   },
 ];
 

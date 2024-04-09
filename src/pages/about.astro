@@ -1,14 +1,14 @@
 ---
 import { db, Headline, eq } from 'astro:db';
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/react/header/header.tsx';
+import Header, { type HeadlineData } from '../components/react/header/header.tsx';
 import BodyText from '../components/BodyText.astro';
 import Card from '../components/Card.astro';
 import Footer from '../components/Footer.astro';
 
 import jasonAboutImage from '../../public/images/stickers/Memoji_About.png';
 
-const headlines = await db.select().from(Headline).where(eq(Headline.page, 'about'));
+const headlines = (await db.select().from(Headline).where(eq(Headline.page, 'about'))) as HeadlineData[];
 ---
 
 <Layout title="Jason Schulz — Software Engineer">
@@ -18,7 +18,7 @@ const headlines = await db.select().from(Headline).where(eq(Headline.page, 'abou
       <div><BodyText /></div>
       <div class="experience-card-column">
         <div class="experience-card-wrapper">
-          <Card headline={'LinkedIn'} statement={' '} variant={3} url="https://linkedin.com/in/jasonpaulso" />
+          <Card headline={'LinkedIn'} statement={' '} url="https://linkedin.com/in/jasonpaulso" class="card-sage-green" />
         </div>
       </div>
     </div>

@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Sticker from '../sticker/sticker.tsx';
 import './header.css';
 
 export type HeadlineType = [ImageMetadata, string, string?];
 
-interface HeadlineInterface {
+export interface HeadlineData {
   text: string;
-  image: unknown;
+  image: ImageMetadata;
   animation: string;
 }
 
 interface HeaderProps {
-  defaultImageMetadata: unknown;
-  headlines: HeadlineInterface[];
+  defaultImageMetadata: ImageMetadata;
+  headlines: HeadlineData[];
 }
 
 const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
@@ -22,39 +22,75 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
   const [currentImageMetadata, setCurrentImageMetadata] = useState<ImageMetadata>(defaultImageMetadata as ImageMetadata);
   const [currentImageAnimation, setCurrentImageAnimation] = useState<string | undefined>();
+  const memoizedHeadlines = useMemo(() => headlines, [headlines]);
 
-  const calculateHeadlineHeight = (text: string) => {
-    const hiddenHeadline = hiddenHeadlineRef.current;
-    if (!hiddenHeadline) return 0;
-    hiddenHeadline.style.visibility = 'hidden';
-    hiddenHeadline.textContent = text;
-    const fontSize = parseFloat(getComputedStyle(hiddenHeadline).fontSize);
-    const lineHeight = parseFloat(getComputedStyle(hiddenHeadline).lineHeight);
-    const width = hiddenHeadline.clientWidth;
-    const numberOfLines = Math.ceil(hiddenHeadline.scrollWidth / ((width * fontSize) / lineHeight));
-    const height = numberOfLines * lineHeight;
+  const handleResize = useCallback(() => {
+    const setHeadlineHeight = () => {
+      const headlineElement = headlineRef.current;
+      if (!headlineElement) return;
 
-    return height;
-  };
+      const calculateHeadlineHeight = (text: string) => {
+        const hiddenHeadline = hiddenHeadlineRef.current;
+        if (!hiddenHeadline) return 0;
 
-  useEffect(() => {
-    const headlineElement = headlineRef.current;
-    if (!headlineElement) return;
+        hiddenHeadline.textContent = text;
+        const renderedHeight = hiddenHeadline.clientHeight;
+        hiddenHeadline.textContent = '';
 
-    const longestHeadlineHeight = headlines.reduce((maxHeight, headline) => {
-      const height = calculateHeadlineHeight(headline.text);
-      return height > maxHeight ? height : maxHeight;
-    }, 0);
+        return renderedHeight;
+      };
 
-    headlineElement.style.minHeight = `${longestHeadlineHeight}px`;
-  }, [headlines]);
+      const longestHeadlineHeight = memoizedHeadlines.reduce((maxHeight, headline) => {
+        const height = calculateHeadlineHeight(headline.text);
+        return height > maxHeight ? height : maxHeight;
+      }, 0);
+
+      headlineElement.style.minHeight = `${longestHeadlineHeight}px`;
+    };
+
+    setHeadlineHeight();
+  }, [memoizedHeadlines]);
+
+  // const calculateHeadlineHeight = (text: string) => {
+  //   const hiddenHeadline = hiddenHeadlineRef.current;
+  //   const visibleHeadline = headlineRef.current;
+  //   if (!hiddenHeadline || !visibleHeadline) return 0;
+
+  //   hiddenHeadline.textContent = text;
+
+  //   const cursorElement = cursorRef.current;
+
+  //   if (cursorElement) {
+  //     const headerLineHeight = getComputedStyle(hiddenHeadline).getPropertyValue('line-height');
+  //     cursorElement.style.height = headerLineHeight;
+  //     hiddenHeadline.appendChild(cursorElement);
+  //   }
+
+  //   const renderedHeight = hiddenHeadline.clientHeight;
+  //   hiddenHeadline.remove();
+  //   return renderedHeight;
+  // };
+
+  // const setHeadlineHeight = (headlines: HeadlineData[]) => {
+  //   const headlineElement = headlineRef.current;
+  //   if (!headlineElement) return;
+  //   const longestHeadlineHeight = headlines.reduce((maxHeight, headline) => {
+  //     const height = calculateHeadlineHeight(headline.text);
+  //     return height > maxHeight ? height : maxHeight;
+  //   }, 0);
+  //   headlineElement.style.minHeight = `${longestHeadlineHeight}px`;
+  // };
 
   const typeWriter = (text: string, onComplete: () => void) => {
     let currentText = '';
     const interval = setInterval(() => {
       const headlineElement = headlineRef.current;
       const cursorElement = cursorRef.current;
+
       if (!headlineElement || !cursorElement) return;
+
+      const headerLineHeight = getComputedStyle(headlineElement).getPropertyValue('line-height');
+      cursorElement.style.height = headerLineHeight;
 
       if (currentText.length === text.length) {
         clearInterval(interval);
@@ -90,8 +126,8 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
     });
   };
 
-  const animateHeadlines = async () => {
-    for (const [index, headline] of headlines.entries()) {
+  const animateHeadlines = useCallback(async () => {
+    for (const [index, headline] of memoizedHeadlines.entries()) {
       const { text, animation, image } = headline;
       setCurrentImageMetadata(image as ImageMetadata);
       setCurrentImageAnimation(animation);
@@ -111,22 +147,38 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
       }
       setCurrentImageMetadata(currentImageMetadata);
     }
-  };
+  }, [memoizedHeadlines, currentImageMetadata]);
+
+  // const handleResize = useCallback(() => {
+  //   setHeadlineHeight(memoizedHeadlines);
+  // }, [memoizedHeadlines]);
 
   useEffect(() => {
+    // setHeadlineHeight(memoizedHeadlines);
+    // window.addEventListener('resize', handleResize);
+  }, [memoizedHeadlines]);
+
+  useEffect(() => {
+    handleResize();
     const timeout = setTimeout(() => {
       animateHeadlines();
     }, 700);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeout);
+    };
+  }, [handleResize, memoizedHeadlines]);
 
-    return () => clearTimeout(timeout);
-  }, []);
   return (
     <header className="header">
       <Sticker imageMetadata={currentImageMetadata} id="sticker" isAnimated={stickerIsAnimating} animation={currentImageAnimation} />
-      <h1 ref={headlineRef} className="header-title">
-        <span id="cursor" ref={cursorRef} />
-      </h1>
-      <div ref={hiddenHeadlineRef} className="hidden-headline" />
+      <span>
+        <h1 ref={headlineRef} className="header-title">
+          <span id="cursor" ref={cursorRef} />
+        </h1>
+        <div ref={hiddenHeadlineRef} className="hidden-headline header-title" />
+      </span>
     </header>
   );
 };

@@ -1,33 +1,36 @@
-export const typeWriter = async (parentElement: HTMLElement, cursor: Node, text: string): Promise<void> => {
-  return new Promise((resolve) => {
-    const interval = setInterval(() => {
-      const currentText = parentElement.textContent!;
-      if (currentText.length === text.length) {
-        clearInterval(interval);
-        resolve();
-      } else {
-        parentElement.textContent = text.slice(0, currentText.length + 1);
-        parentElement.appendChild(cursor);
-      }
-    }, 100);
-  });
+// utils.ts
+export const typeWriter = (text: string, onComplete: () => void, headlineElement: HTMLElement, cursorElement: HTMLElement) => {
+  let currentText = '';
+  const interval = setInterval(() => {
+    const headerLineHeight = getComputedStyle(headlineElement).getPropertyValue('line-height');
+    cursorElement.style.height = headerLineHeight;
+
+    if (currentText.length === text.length) {
+      clearInterval(interval);
+      onComplete();
+    } else {
+      currentText = text.slice(0, currentText.length + 1);
+      headlineElement.textContent = currentText;
+      headlineElement.appendChild(cursorElement);
+    }
+  }, 100);
 };
 
-export const deleteSelectedText = async (headlineElement: HTMLElement | null, cursor: Node): Promise<void> => {
-  if (headlineElement) {
+export const selectAndDeleteHeadline = (headlineElement: HTMLElement, cursorElement: HTMLElement) => {
+  return new Promise<void>((resolve) => {
     const range = document.createRange();
     range.selectNodeContents(headlineElement);
     const selection = window.getSelection();
-    selection!.removeAllRanges();
-    headlineElement.removeChild(cursor);
-    selection!.addRange(range);
+    selection?.removeAllRanges();
+    headlineElement.removeChild(cursorElement);
+    selection?.addRange(range);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    while (headlineElement.firstChild && headlineElement.firstChild !== cursor) {
-      headlineElement.removeChild(headlineElement.firstChild);
-    }
-
-    selection!.removeAllRanges();
-  }
+    setTimeout(() => {
+      while (headlineElement.firstChild) {
+        headlineElement.removeChild(headlineElement.firstChild);
+      }
+      selection?.removeAllRanges();
+      resolve();
+    }, 1000);
+  });
 };
