@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-
 import Sticker from '../sticker/sticker.tsx';
-
 import './header.css';
 
 export type HeadlineType = [ImageMetadata, string, string?];
@@ -20,9 +18,36 @@ interface HeaderProps {
 const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
   const headlineRef = useRef<HTMLHeadingElement | null>(null);
   const cursorRef = useRef<HTMLElement | null>(null);
+  const hiddenHeadlineRef = useRef<HTMLDivElement | null>(null);
   const [stickerIsAnimating, setStickerIsAnimating] = useState(false);
   const [currentImageMetadata, setCurrentImageMetadata] = useState<ImageMetadata>(defaultImageMetadata as ImageMetadata);
   const [currentImageAnimation, setCurrentImageAnimation] = useState<string | undefined>();
+
+  const calculateHeadlineHeight = (text: string) => {
+    const hiddenHeadline = hiddenHeadlineRef.current;
+    if (!hiddenHeadline) return 0;
+    hiddenHeadline.style.visibility = 'hidden';
+    hiddenHeadline.textContent = text;
+    const fontSize = parseFloat(getComputedStyle(hiddenHeadline).fontSize);
+    const lineHeight = parseFloat(getComputedStyle(hiddenHeadline).lineHeight);
+    const width = hiddenHeadline.clientWidth;
+    const numberOfLines = Math.ceil(hiddenHeadline.scrollWidth / ((width * fontSize) / lineHeight));
+    const height = numberOfLines * lineHeight;
+
+    return height;
+  };
+
+  useEffect(() => {
+    const headlineElement = headlineRef.current;
+    if (!headlineElement) return;
+
+    const longestHeadlineHeight = headlines.reduce((maxHeight, headline) => {
+      const height = calculateHeadlineHeight(headline.text);
+      return height > maxHeight ? height : maxHeight;
+    }, 0);
+
+    headlineElement.style.minHeight = `${longestHeadlineHeight}px`;
+  }, [headlines]);
 
   const typeWriter = (text: string, onComplete: () => void) => {
     let currentText = '';
@@ -95,13 +120,13 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
 
     return () => clearTimeout(timeout);
   }, []);
-
   return (
     <header className="header">
       <Sticker imageMetadata={currentImageMetadata} id="sticker" isAnimated={stickerIsAnimating} animation={currentImageAnimation} />
       <h1 ref={headlineRef} className="header-title">
         <span id="cursor" ref={cursorRef} />
       </h1>
+      <div ref={hiddenHeadlineRef} className="hidden-headline" />
     </header>
   );
 };
