@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type FC } from 'react';
+
 import './nav.css';
-import emailIcon from '../../../images/love-letter.png';
+import emailIcon from '@assets/images/other/love-letter.png';
+
 export interface NavData {
   links: {
     title: string;
@@ -9,7 +11,7 @@ export interface NavData {
   activeLinkIndex?: any;
 }
 
-const Nav: React.FC<NavData> = ({ links, activeLinkIndex }) => {
+const Nav: FC<NavData> = ({ links, activeLinkIndex }) => {
   const navRef = useRef<HTMLElement | null>(null);
   const sliderRef = useRef<HTMLElement | null>(null);
   const [activeLink, setActiveLink] = useState<HTMLAnchorElement | undefined>();

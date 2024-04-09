@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Sticker from '../sticker/sticker.tsx';
+import Sticker from '@components/react/sticker/sticker.tsx';
 import './header.css';
 
 export type HeadlineType = [ImageMetadata, string, string?];

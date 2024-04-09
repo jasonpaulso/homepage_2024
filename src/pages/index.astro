@@ -5,7 +5,7 @@ import Header, { type HeadlineData } from '@components/react/header/header';
 import Footer from '@components/astro/footer/Footer.astro';
 import Cards from '@components/astro/cards/Cards.astro';
 import type { Props as CardProps } from '@components/astro/card/Card.astro';
-import jasonHomeImage from '@public/images/stickers/Memoji_Home.png';
+import jasonHomeImage from '@assets/images/stickers/Memoji_Home.png';
 
 const headlines = (await db.select().from(Headline).where(eq(Headline.page, 'home'))) as HeadlineData[];
 const cards = (await db.select().from(ExperienceCard)) as CardProps[];

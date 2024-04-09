@@ -6,7 +6,7 @@ import BodyText from '@components/astro/body-text/BodyText.astro';
 import Card from '@components/astro/card/Card.astro';
 import Footer from '@components/astro/footer/Footer.astro';
 
-import jasonAboutImage from '../../public/images/stickers/Memoji_About.png';
+import jasonAboutImage from '@assets/images/stickers/Memoji_About.png';
 
 const headlines = (await db.select().from(Headline).where(eq(Headline.page, 'about'))) as HeadlineData[];
 ---
