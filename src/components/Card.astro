@@ -54,9 +54,11 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
   a {
     padding: 16px;
     border-radius: 10px;
-    height: 180px;
+    min-height: 180px;
+    height: 100%;
     width: 240px;
     max-width: 100%;
+    row-gap: 40px;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
@@ -94,7 +96,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
     a {
       padding: 20px;
       border-radius: 14px;
-      height: 220px;
+      min-height: 220px;
       width: 300px;
     }
 
@@ -114,7 +116,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
     a {
       padding: var(--padding-medium);
       border-radius: 16px;
-      height: 260px;
+      min-height: 260px;
       width: 360px;
     }
     h3 {
@@ -134,7 +136,7 @@ const { headline, statement, url, logo, subtitle, class: className } = Astro.pro
     a {
       padding: 32px;
       border-radius: 16px;
-      height: 300px;
+      min-height: 300px;
       width: 420px;
     }
 
