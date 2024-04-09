@@ -11,7 +11,7 @@ const headlines = (await db.select().from(Headline).where(eq(Headline.page, 'hom
 const cards = (await db.select().from(ExperienceCard)) as CardProps[];
 ---
 
-<Layout title="Jason Schulz — Software Engineer">
+<Layout title="Jason Schulz — Software Engineer" className="home">
   <Header defaultImageMetadata={jasonHomeImage} headlines={headlines} client:visible />
   <Cards cards={cards} />
   <Footer showsAttribution />
