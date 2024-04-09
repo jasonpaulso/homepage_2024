@@ -1,0 +1,55 @@
+.notification-container {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.notification {
+  background-color: var(--color-sunflower-yellow);
+  color: var(--color-primary);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.prompt {
+  margin-top: 10px;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.yes-btn,
+.no-btn {
+  padding: 6px 12px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-small);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.yes-btn {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+.no-btn {
+  background-color: var(--color-offwhite);
+  color: var(--color-primary);
+}

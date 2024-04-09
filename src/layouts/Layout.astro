@@ -1,32 +1,12 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
-
+import './layout.css';
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
-
-const baseVars = {
-  padding: '12px 12px 80px 12px',
-  color: 'white',
-};
-
-const smallMediaVars = {
-  smallPadding: '24px 24px 100px 24px',
-  smallMaxWidth: '640px',
-};
-
-const mediumMediaVars = {
-  mediumPadding: '48px 48px 120px 48px',
-  mediumMaxWidth: '1024px',
-};
-
-const largeMediaVars = {
-  largePadding: '64px 64px 140px 64px',
-  largeMaxWidth: '1440px',
-};
 ---
 
 <!doctype html>
@@ -52,124 +32,5 @@ const largeMediaVars = {
       <Nav />
       <slot />
     </main>
-    <style is:global>
-      @tailwind base;
-      @tailwind components;
-      @tailwind utilities;
-
-      :root {
-        --padding: 12px 12px 80px 12px;
-        --small-padding: 24px 24px 100px 24px;
-        --small-max-width: 640px;
-        --medium-padding: 48px 48px 120px 48px;
-        --medium-max-width: 1024px;
-        --large-padding: 64px 64px 140px 64px;
-        --large-max-width: 1440px;
-        --onyx: #212121;
-        --sunflower-yellow: #ffd600;
-        --eggshell: #f7f7f2;
-        --pure-white: #ffffff;
-        --sage-green: #d4d6ba;
-        --light-gray: #d9d9d9;
-        --dark-walnut: #542e21;
-        --ivory-white: #f8f7f1;
-        --blue-gray: #4a6d7c;
-        --ash-gray: #dadada;
-        --color-primary: #222222;
-        --color-secondary: #ffffff;
-        --color-offwhite: #eeeeee;
-        --font-family-primary: 'Helvetica Now Display', sans-serif;
-        --font-family-secondary: 'JetBrains Mono', monospace;
-
-        --font-size-small: 12px;
-        --font-size-medium: 16px;
-        --font-size-large: 20px;
-
-        --padding-small: 12px;
-        --padding-medium: 24px;
-        --padding-large: 48px;
-
-        --margin-small: 12px;
-        --margin-medium: 24px;
-        --margin-large: 48px;
-
-        --animation-duration: 0.5s;
-        --animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
-      }
-
-      @layer base {
-        @font-face {
-          font-family: 'Helvetica Now Display';
-          src: url('/fonts/helvtica-now-display/HelveticaNowDisplay-Regular.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Helvetica Now Display';
-          src: url('/fonts/helvtica-now-display/HelveticaNowDisplay-Bold.woff') format('woff');
-          font-weight: bold;
-          font-style: normal;
-        }
-
-        @font-face {
-          font-family: 'JetBrains Mono';
-          src: url('/fonts/jetbrains-mono/JetBrainsMono-Regular.woff2') format('woff');
-          font-weight: normal;
-          font-style: normal;
-        }
-      }
-
-      html {
-        background: #f8f7f1;
-      }
-
-      body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      code {
-      }
-
-      main {
-        margin: auto;
-        padding: var(--padding);
-        max-width: var(--maxWidth);
-        color: var(--color-secondary);
-        font-size: var(--font-size-large);
-        line-height: 1.6;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        flex: 1;
-        width: 100%;
-      }
-
-      @media (min-width: 640px) {
-        main {
-          max-width: var(--small-max-width);
-          padding: var(--small-padding);
-        }
-      }
-
-      @media (min-width: 1024px) {
-        main {
-          max-width: var(--medium-max-width);
-          padding: var(--medium-padding);
-        }
-      }
-
-      @media (min-width: 1440px) {
-        main {
-          max-width: var(--large-max-width);
-          padding: var(--large-padding);
-        }
-      }
-    </style>
   </body>
 </html>
