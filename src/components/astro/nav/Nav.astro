@@ -1,7 +1,7 @@
 ---
-import EmailNotification from '../notification/EmailNotification.astro';
-import Navigation from '../../react/nav/nav.tsx';
-import type { NavData } from '../../react/nav/nav.tsx';
+import EmailNotification from '@components/astro/notification/EmailNotification.astro';
+import Navigation from '@components/react/nav/nav.tsx';
+import type { NavData } from '@components/react/nav/nav.tsx';
 const pathname = Astro.url.pathname;
 const navData: NavData = {
   links: [

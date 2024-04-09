@@ -51,36 +51,6 @@ const Header = ({ defaultImageMetadata, headlines }: HeaderProps) => {
     setHeadlineHeight();
   }, [memoizedHeadlines]);
 
-  // const calculateHeadlineHeight = (text: string) => {
-  //   const hiddenHeadline = hiddenHeadlineRef.current;
-  //   const visibleHeadline = headlineRef.current;
-  //   if (!hiddenHeadline || !visibleHeadline) return 0;
-
-  //   hiddenHeadline.textContent = text;
-
-  //   const cursorElement = cursorRef.current;
-
-  //   if (cursorElement) {
-  //     const headerLineHeight = getComputedStyle(hiddenHeadline).getPropertyValue('line-height');
-  //     cursorElement.style.height = headerLineHeight;
-  //     hiddenHeadline.appendChild(cursorElement);
-  //   }
-
-  //   const renderedHeight = hiddenHeadline.clientHeight;
-  //   hiddenHeadline.remove();
-  //   return renderedHeight;
-  // };
-
-  // const setHeadlineHeight = (headlines: HeadlineData[]) => {
-  //   const headlineElement = headlineRef.current;
-  //   if (!headlineElement) return;
-  //   const longestHeadlineHeight = headlines.reduce((maxHeight, headline) => {
-  //     const height = calculateHeadlineHeight(headline.text);
-  //     return height > maxHeight ? height : maxHeight;
-  //   }, 0);
-  //   headlineElement.style.minHeight = `${longestHeadlineHeight}px`;
-  // };
-
   const typeWriter = (text: string, onComplete: () => void) => {
     let currentText = '';
     const interval = setInterval(() => {
